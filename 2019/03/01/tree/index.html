@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.0.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="树一个树结构包含一系列存在父子关系的节点。每个节点都有一个父节点（除了root）以及零个或多个子节点。 节点：树中的每个元素。一个节点可以有祖先和后代。根节点：位于树顶部的节点，没有父节点。 内部节点：至少有一个子节点的节点。外部节点/叶节点：没有子元素的节点。 子树：由节点和它的后代构成。 节点的深度：取决于它的祖先节点的数量。树的高度：取决于所有节点深度的最大值。 二叉树&amp;amp;二叉搜索树二">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js数据结构与算法--树&amp;二叉搜索树&amp;自平衡树">
+<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/2019/03/01/tree/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="树一个树结构包含一系列存在父子关系的节点。每个节点都有一个父节点（除了root）以及零个或多个子节点。 节点：树中的每个元素。一个节点可以有祖先和后代。根节点：位于树顶部的节点，没有父节点。 内部节点：至少有一个子节点的节点。外部节点/叶节点：没有子元素的节点。 子树：由节点和它的后代构成。 节点的深度：取决于它的祖先节点的数量。树的高度：取决于所有节点深度的最大值。 二叉树&amp;amp;二叉搜索树二">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-01T15:53:34.355Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js数据结构与算法--树&amp;二叉搜索树&amp;自平衡树">
+<meta name="twitter:description" content="树一个树结构包含一系列存在父子关系的节点。每个节点都有一个父节点（除了root）以及零个或多个子节点。 节点：树中的每个元素。一个节点可以有祖先和后代。根节点：位于树顶部的节点，没有父节点。 内部节点：至少有一个子节点的节点。外部节点/叶节点：没有子元素的节点。 子树：由节点和它的后代构成。 节点的深度：取决于它的祖先节点的数量。树的高度：取决于所有节点深度的最大值。 二叉树&amp;amp;二叉搜索树二">
+
+
+
+
+
+
+  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/2019/03/01/tree/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>js数据结构与算法--树&二叉搜索树&自平衡树 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/01/tree/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js数据结构与算法--树&二叉搜索树&自平衡树
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-01 13:01:48 / 修改时间：23:53:34" itemprop="dateCreated datePublished" datetime="2019-03-01T13:01:48+08:00">2019-03-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><p>一个树结构包含一系列存在父子关系的节点。每个节点都有一个父节点（除了root）以及零个或多个子节点。</p>
+<p>节点：树中的每个元素。一个节点可以有祖先和后代。<br>根节点：位于树顶部的节点，没有父节点。</p>
+<p>内部节点：至少有一个子节点的节点。<br>外部节点/叶节点：没有子元素的节点。</p>
+<p>子树：由节点和它的后代构成。</p>
+<p>节点的深度：取决于它的祖先节点的数量。<br>树的高度：取决于所有节点深度的最大值。</p>
+<h2 id="二叉树-amp-二叉搜索树"><a href="#二叉树-amp-二叉搜索树" class="headerlink" title="二叉树&amp;二叉搜索树"></a>二叉树&amp;二叉搜索树</h2><p>二叉树Binary：二叉树中的节点最多只能由两个子节点，一个是左侧子节点，一个是右侧子节点。插入/查找/删除节点更高效。<br>二叉搜索树BinarySearchTree：只允许在左侧节点存储（比父节点）小的值，在右侧节点存储（比父节点）大（或者等于）的值。</p>
+<h3 id="BinarySearchTree-向树中插入一个值"><a href="#BinarySearchTree-向树中插入一个值" class="headerlink" title="BinarySearchTree, 向树中插入一个值"></a>BinarySearchTree, 向树中插入一个值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">BinarySearchTree</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> Node = <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.key = key;</span><br><span class="line">            <span class="keyword">this</span>.left = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">this</span>.right = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> root = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> newNode = <span class="keyword">new</span> Node(key);</span><br><span class="line">            <span class="keyword">if</span>(root === <span class="literal">null</span>) &#123;</span><br><span class="line">                root = newNode;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                insertNode(root, newNode);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> insertNode = <span class="function"><span class="keyword">function</span>(<span class="params">node, newNode</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(newNode.key &lt; node.key) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(node.left === <span class="literal">null</span>) &#123;</span><br><span class="line">                        node.left = newNode;</span><br><span class="line">                    &#125;<span class="keyword">else</span> &#123;<span class="comment">//递归</span></span><br><span class="line">                        insertNode(node.left, newNode);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(node.right === <span class="literal">null</span>) &#123;</span><br><span class="line">                        node.right = newNode;</span><br><span class="line">                    &#125;<span class="keyword">else</span> &#123;<span class="comment">//递归</span></span><br><span class="line">                        insertNode(node.right, newNode);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h3><p>中序遍历：在二叉树中，中序遍历首先遍历左子树，然后访问根结点，最后遍历右子树。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.inOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    inOrderTraverseNode(root, callback);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> inOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;<span class="comment">//递归中止条件</span></span><br><span class="line">        inOrderTraverseNode(node.left, callback);</span><br><span class="line">        callback(node.key);</span><br><span class="line">        inOrderTraverseNode(node.right, callback);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>前序遍历：在二叉树中，前序遍历首先遍历根节点，然后访问左子树，最后遍历右子树。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.preOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    preOrderTraverseNode(root, callback);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> preOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;<span class="comment">//递归中止条件</span></span><br><span class="line">        callback(node.key);</span><br><span class="line">        preOrderTraverseNode(node.left, callback);</span><br><span class="line">        preOrderTraverseNode(node.right, callback);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>后序遍历：在二叉树中，前序遍历首先遍历左子树，然后访问右子树，最后遍历根节点。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.postOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    postOrderTraverseNode(root, callback);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> postOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;<span class="comment">//递归中止条件</span></span><br><span class="line">        postOrderTraverseNode(node.left, callback);</span><br><span class="line">        postOrderTraverseNode(node.right, callback);</span><br><span class="line">        callback(node.key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="搜索树中的值"><a href="#搜索树中的值" class="headerlink" title="搜索树中的值"></a>搜索树中的值</h3><p>最小值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.min = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> minNode(root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> minNode = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node) &#123;</span><br><span class="line">        <span class="comment">//遍历树的左边直到最下层</span></span><br><span class="line">        <span class="keyword">while</span>(node &amp;&amp; node.left !== <span class="literal">null</span>) &#123;</span><br><span class="line">            node = node.left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node.key;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最大值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.max = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> maxNode(root);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> maxNode = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node) &#123;</span><br><span class="line">        <span class="comment">//遍历树的右边直到最下层</span></span><br><span class="line">        <span class="keyword">while</span>(node &amp;&amp; node.right !== <span class="literal">null</span>) &#123;</span><br><span class="line">            node = node.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>搜索一个特定的值是否存在</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.search = <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> searchNode(root, key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> searchNode = <span class="function"><span class="keyword">function</span>(<span class="params">node, key</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(key &lt; node.key) &#123;</span><br><span class="line">        <span class="keyword">return</span> searchNode(node.left, key);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(key &gt; node.key) &#123;</span><br><span class="line">        <span class="keyword">return</span> searchNode(node.right, key);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="移除一个节点"><a href="#移除一个节点" class="headerlink" title="移除一个节点"></a>移除一个节点</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.remove = <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">    root = removeNode(root, key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> removeNode = <span class="function"><span class="keyword">function</span>(<span class="params">node, key</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node === <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归找节点</span></span><br><span class="line">    <span class="keyword">if</span>(key &lt; node.key) &#123;</span><br><span class="line">        node.left = removeNode(node.left, key);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(key &gt; node.key) &#123;</span><br><span class="line">        node.right = removeNode(node.right, key);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;<span class="comment">//找到要移除的节点时</span></span><br><span class="line">        <span class="comment">//没有子节点 直接移除</span></span><br><span class="line">        <span class="keyword">if</span>(node.left === <span class="literal">null</span> &amp;&amp; node.right === <span class="literal">null</span>) &#123;</span><br><span class="line">            node = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//有一个子节点，则跳过它，直接连其子节点</span></span><br><span class="line">        <span class="keyword">if</span>(node.left === <span class="literal">null</span>) &#123;</span><br><span class="line">            node = node.right;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(node.right === <span class="literal">null</span>) &#123;</span><br><span class="line">            node = node.left;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//有两个子节点，从其右子树找到最小值更新该节点，再移除最小节点</span></span><br><span class="line">        <span class="keyword">var</span> aux = findMinNode(node.right);</span><br><span class="line">        node.key = aux.key;</span><br><span class="line">        node.right = removeNode(node.right, aux.key);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> findMinNode = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;<span class="comment">//找到最小节点</span></span><br><span class="line">            <span class="keyword">while</span>(node &amp;&amp; node.left !== <span class="literal">null</span>) &#123;</span><br><span class="line">                node = node.left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自平衡树-AVL树"><a href="#自平衡树-AVL树" class="headerlink" title="自平衡树 AVL树"></a>自平衡树 AVL树</h2><p>二叉搜索树可能一条边特别深，会造成性能问题。=》自平衡二叉搜索树<br>任何一个节点左右两侧子树的高度之差最多为1， 在添加或删除节点时，会尝试自平衡成一棵完成树。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> insertNode = <span class="function"><span class="keyword">function</span>(<span class="params">node, ele</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node === <span class="literal">null</span>) &#123;</span><br><span class="line">        node = <span class="keyword">new</span> Node(ele);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ele &lt; node.key) &#123;</span><br><span class="line">        node.left = insertNode(node.left, ele);</span><br><span class="line">        <span class="keyword">if</span>(node.left !== <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">//确认是否需要平衡</span></span><br><span class="line">            <span class="keyword">if</span>(heightNode(node.left) - heightNode(node.right) &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(ele &lt; node.left.key) &#123;<span class="comment">//LL</span></span><br><span class="line">                    node = rotationLL(node);</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;<span class="comment">//LR</span></span><br><span class="line">                    node = rotationLR(node);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ele &gt; node.key) &#123;</span><br><span class="line">        node.right = insertNode(node.right, ele);</span><br><span class="line">        <span class="keyword">if</span>(node.right !== <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">//确认是否需要平衡</span></span><br><span class="line">            <span class="keyword">if</span>(heightNode(node.right) - heightNode(node.left) &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(ele &gt; node.right.key) &#123;<span class="comment">//RR</span></span><br><span class="line">                    node = rotationRR(node);</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;<span class="comment">//RL</span></span><br><span class="line">                    node = rotationRL(node);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> heightNode = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node === <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(heightNode(node.left), heightNode(node.right)) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rotationRR = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> temp = node.right;</span><br><span class="line">    node.right = temp.left;</span><br><span class="line">    temp.left = node;</span><br><span class="line">    <span class="keyword">return</span> temp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rotationLL = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> temp = node.left;</span><br><span class="line">    node.left = temp.right;</span><br><span class="line">    temp.right = node;</span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rotationLR = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    node.left = rotationRR(node.left);</span><br><span class="line">    <span class="keyword">return</span> rotationLL(node);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rotationRL = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    node.right = rotationLL(node.right);</span><br><span class="line">    <span class="keyword">return</span> rotationRR(node);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="其他树"><a href="#其他树" class="headerlink" title="其他树"></a>其他树</h3><p>插入或移除节点最好的选择是红黑树；<br>堆积树</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/02/28/dairy20190228/" rel="next" title="dairy20190228">
+                <i class="fa fa-chevron-left"></i> dairy20190228
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JOYCE</p>
+              <p class="site-description motion-element" itemprop="description">Do what you want!</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number">1.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树-amp-二叉搜索树"><span class="nav-number">1.1.</span> <span class="nav-text">二叉树&amp;二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BinarySearchTree-向树中插入一个值"><span class="nav-number">1.1.1.</span> <span class="nav-text">BinarySearchTree, 向树中插入一个值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树的遍历"><span class="nav-number">1.1.2.</span> <span class="nav-text">树的遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索树中的值"><span class="nav-number">1.1.3.</span> <span class="nav-text">搜索树中的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除一个节点"><span class="nav-number">1.1.4.</span> <span class="nav-text">移除一个节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自平衡树-AVL树"><span class="nav-number">1.2.</span> <span class="nav-text">自平衡树 AVL树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他树"><span class="nav-number">1.2.1.</span> <span class="nav-text">其他树</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JOYCE</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/blog/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/blog/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/blog/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
