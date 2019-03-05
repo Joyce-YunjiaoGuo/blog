@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.0.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="数据存储的位置 =&amp;gt; 数据读写性能 4中基本的数据存取位置：1.字面量：字符串、数字、布尔值、对象、数组、函数、正则、null、undefined2.本地变量：使用var定义的数据存储单元3.数组元素：存储在JS数组对象内部，以数字为索引4.对象成员：存储在JS对象内部，以字符串为索引 存取数据时间： 字面量 = 本地变量 &amp;lt; 数组 = 对象多用字面量和局部变量，减少数组项和对象成员的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高性能javascript1--数据存取">
+<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/2019/03/05/highperformance2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据存储的位置 =&amp;gt; 数据读写性能 4中基本的数据存取位置：1.字面量：字符串、数字、布尔值、对象、数组、函数、正则、null、undefined2.本地变量：使用var定义的数据存储单元3.数组元素：存储在JS数组对象内部，以数字为索引4.对象成员：存储在JS对象内部，以字符串为索引 存取数据时间： 字面量 = 本地变量 &amp;lt; 数组 = 对象多用字面量和局部变量，减少数组项和对象成员的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-05T12:36:57.418Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高性能javascript1--数据存取">
+<meta name="twitter:description" content="数据存储的位置 =&amp;gt; 数据读写性能 4中基本的数据存取位置：1.字面量：字符串、数字、布尔值、对象、数组、函数、正则、null、undefined2.本地变量：使用var定义的数据存储单元3.数组元素：存储在JS数组对象内部，以数字为索引4.对象成员：存储在JS对象内部，以字符串为索引 存取数据时间： 字面量 = 本地变量 &amp;lt; 数组 = 对象多用字面量和局部变量，减少数组项和对象成员的">
+
+
+
+
+
+
+  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/2019/03/05/highperformance2/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>高性能javascript1--数据存取 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/05/highperformance2/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高性能javascript1--数据存取
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-05 15:25:18 / 修改时间：20:36:57" itemprop="dateCreated datePublished" datetime="2019-03-05T15:25:18+08:00">2019-03-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据存储的位置 =&gt; 数据读写性能</p>
+<p>4中基本的数据存取位置：<br>1.字面量：字符串、数字、布尔值、对象、数组、函数、正则、null、undefined<br>2.本地变量：使用var定义的数据存储单元<br>3.数组元素：存储在JS数组对象内部，以数字为索引<br>4.对象成员：存储在JS对象内部，以字符串为索引</p>
+<p>存取数据时间： 字面量 = 本地变量 &lt; 数组 = 对象<br>多用字面量和局部变量，减少数组项和对象成员的使用</p>
+<h2 id="管理作用域"><a href="#管理作用域" class="headerlink" title="管理作用域"></a>管理作用域</h2><h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3><p>每一个js函数都表示为一个对象，是Function对象的一个实例。Function对象有一个内部属性(只有js引擎可存取))[[scope]]。<br>[[scope]]包含了一个函数被创建的作用域中对象的集合–作用域链。</p>
+<p>当函数被创建时 =&gt; GO全局对象<br>当函数被执行时 =&gt; 执行期上下文 函数每次执行时对应的执行环境都是独一无二的，因此多次调用同一个函数就会导致创建多个执行期上下文。当函数执行完毕，执行期上下文就被销毁<br>                 AO 作用域链最顶端，当执行期上下文被销毁，AO也被销毁</p>
+<p>！！！读取数据性能优化<br>函数执行时，变量解析过程： 从作用域顶端即当前函数的AO开始，直到GO。如果没找到，则为undefined。如果两个位于作用域链不同部分的同名变量，则会返回第一个找到的值。<br>变量所在的位置越深，读写速度越慢。因此读取局部变量快，读取全局变量慢 =&gt; !!!尽可能使用局部变量，多次使用的全局变量的引用可以存储到一个局部变量里</p>
+<h3 id="改变作用域链"><a href="#改变作用域链" class="headerlink" title="改变作用域链"></a>改变作用域链</h3><p>一般来说，一个执行环境的作用域链是不会改变的，除了with, try…catch…和eval()。=&gt;动态作用域尽量少用</p>
+<p>with用来给对象的所有属性创建一个变量，避免多次书写，但会产生性能问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initUI</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">with</span>(<span class="built_in">document</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> bd = body,</span><br><span class="line">        links = getElementsByTagName(<span class="string">'a'</span>);</span><br><span class="line">        .</span><br><span class="line">        .</span><br><span class="line">        .</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当执行到with时，一个新的对象变量（包含document对象所有属性）被置于作用链的头部，意味着函数的局部变量处于作用链的第二个对象中。<br>这使得访问document对象的属性非常快，但访问局部变量较慢。=&gt; !!!最好避免使用with </p>
+<p>try…catch…用于捕捉错误，也会改变作用域链，产生相同的性能问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    methodThatMightCauseAnError();</span><br><span class="line">&#125;<span class="keyword">catch</span> (ex) &#123;</span><br><span class="line">    alert(ex.message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当try中的代码块发生错误，执行过程会自动跳转到catch子句，然后把异常对象推入一个变量对象并位于作用域链的首位，局部变量则变为第二个。<br>一旦catch执行完毕，作用域链就会恢复之前状态。<br>=&gt; 为减小其对性能的影响，可以将错误委托给一个函数来处理。（只执行一条语句&amp;&amp;没有局部变量的访问）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    methodThatMightCauseAnError();</span><br><span class="line">&#125;<span class="keyword">catch</span> (ex) &#123;</span><br><span class="line">    handleError(ex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包：允许函数访问局部作用域之外的数据，但可能导致性能问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">assignEvents</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> id = <span class="string">'xdi9592'</span>;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'save-btn'</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        saveDocument(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>！！！<br>1.闭包会拿到当前函数的AO和GO，当函数调用完，自己的AO和执行期上下文一起销毁，但作用域链的引用仍保存在了闭包中，无法销毁=&gt;更大的内存开销=&gt;内存泄漏</p>
+<p>2.当闭包代码执行时，会创建一个执行期上下文和一个放在作用域链最顶端的AO，于是在访问assignEvents的AO和GO时，每次访问都带来性能损失。<br>！！！可以将常用的跨作用域变量存储在局部变量中，直接访问局部变量。</p>
+<h2 id="对象成员"><a href="#对象成员" class="headerlink" title="对象成员"></a>对象成员</h2><p>对象成员包括属性和方法。 ？为啥访问对象慢呢</p>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>JS中的对象是基于原型的。对象通过<em>proto</em>属性绑定到其原型，默认每个对象obj.<em>proto</em> = Object;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">    title: <span class="string">'javascript'</span>,</span><br><span class="line">    publisher: <span class="string">'Yahoo'</span></span><br><span class="line">&#125;;</span><br><span class="line">alert(book.toString());<span class="comment">//[object Object] toString()方法继承自原型Object</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//对象是否包含xx属性（既搜索自己也搜索原型） xx in obj</span></span><br><span class="line">alert(<span class="string">'title'</span> <span class="keyword">in</span> book);<span class="comment">//true</span></span><br><span class="line">alert(<span class="string">'toString'</span> <span class="keyword">in</span> book);<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//对象是否包含xx实例属性（自己的而不是继承原型的） obj.hasOwnProperty(xx)</span></span><br><span class="line">alert(book.hasOwnProperty(<span class="string">'title'</span>));</span><br><span class="line">alert(book.hasOwnProperty(<span class="string">'toString'</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Book</span>(<span class="params">title, publisher</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.title = title;</span><br><span class="line">    <span class="keyword">this</span>.publisher = publisher;</span><br><span class="line">&#125;</span><br><span class="line">Book.prototype.sayTitle = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="keyword">this</span>.title);</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">var</span> book1 = <span class="keyword">new</span> Book(<span class="string">'high js'</span>, <span class="string">'Yahoo'</span>);</span><br><span class="line"></span><br><span class="line">alert(book1 instanceOf Book);<span class="comment">//true</span></span><br><span class="line">alert(book1 instanceOf <span class="built_in">Object</span>);<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>book1.<em>proto</em> = Book.prototype<br>Book.prototype.<em>proto</em> = Object<br>当调用原型链上的方法时，访问的位置越深，找到的越慢，每深入一层原型链都会增加性能损失。 </p>
+<h3 id="嵌套成员"><a href="#嵌套成员" class="headerlink" title="嵌套成员"></a>嵌套成员</h3><p>每次遇到点操作符，潜逃成员会导致js引擎遍历素有对象成员，对象成员嵌套越深，读取速度越慢。<br>location.href比window.location.href要快<br>如果不是对象自己的属性，还要去原型链上找，花更多时间。</p>
+<p>！！！=&gt; 缓存对象成员值<br>在函数中如果要多次读取同一个对象属性，最佳做法时将属性值保存到局部变量中，减少性能开销。但要注意this指向问题！</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/03/05/highperformance1/" rel="next" title="高性能javascript1--加载和执行">
+                <i class="fa fa-chevron-left"></i> 高性能javascript1--加载和执行
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JOYCE</p>
+              <p class="site-description motion-element" itemprop="description">Do what you want!</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#管理作用域"><span class="nav-number">1.</span> <span class="nav-text">管理作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链"><span class="nav-number">1.1.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改变作用域链"><span class="nav-number">1.2.</span> <span class="nav-text">改变作用域链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">1.3.</span> <span class="nav-text">闭包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象成员"><span class="nav-number">2.</span> <span class="nav-text">对象成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型"><span class="nav-number">2.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型链"><span class="nav-number">2.2.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套成员"><span class="nav-number">2.3.</span> <span class="nav-text">嵌套成员</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JOYCE</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/blog/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/blog/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/blog/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
