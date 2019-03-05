@@ -288,6 +288,457 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/05/highperformance1/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/03/05/highperformance1/" class="post-title-link" itemprop="url">高性能javascript1--加载和执行</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-05 10:44:34 / 修改时间：14:10:08" itemprop="dateCreated datePublished" datetime="2019-03-05T10:44:34+08:00">2019-03-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="javascript的阻塞特性"><a href="#javascript的阻塞特性" class="headerlink" title="javascript的阻塞特性"></a>javascript的阻塞特性</h1><p>当浏览器再执行js代码时， 不能同时做其他事情。页面不能下载和渲染，因为js会改变页面内容。</p>
+<p>为了解决这个问题， 主要有以下几种方法：</p>
+<h2 id="1-将脚本放在底部"><a href="#1-将脚本放在底部" class="headerlink" title="1.将脚本放在底部"></a>1.将脚本放在底部</h2><p>如果把大量js文件放在head中，js文件的下载和执行会阻塞页面加载，导致明显的延迟，通常表现为空白页面，用户无法浏览和交互。<br>IE8,Firefox3.5,Safari4和Chrome2都允许并行下载js文件，js文件间不阻塞，但仍阻塞其他资源的下载。<br>于是，将所有script标签尽可能放到body标签的底部，尽量减少对整个页面下载的影响。等到下载执行底部的js时，大部分页面已经下载并显示给用户。</p>
+<h2 id="2-将js文件合并成一个再引入"><a href="#2-将js文件合并成一个再引入" class="headerlink" title="2.将js文件合并成一个再引入"></a>2.将js文件合并成一个再引入</h2><p>由于每一个script标签下载时都会阻塞页面渲染，所以要减少页面包含的script标签数量，尤其是外链脚本。<br>文件合并：离线打包工具</p>
+<h2 id="3-无阻塞脚本"><a href="#3-无阻塞脚本" class="headerlink" title="3.无阻塞脚本"></a>3.无阻塞脚本</h2><p>仅仅减少js文件大小和限制http请求数，不能彻底解决问题，于是–无阻塞脚本–在页面加载完成后才加载js代码。</p>
+<h3 id="a-延迟的脚本"><a href="#a-延迟的脚本" class="headerlink" title="a.延迟的脚本"></a>a.延迟的脚本</h3><p>defer: 页面解析到script标签后开始下载对应js文件，与其他资源并行下载，直到dom加载完成，在window.onload事件触发前，执行。 (html4)<br>async: 页面解析到script标签后开始下载对应js文件，与其他资源并行下载，下载完后自动执行。（html5）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"file1.js"</span> defer&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"file2.js"</span> <span class="keyword">async</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>！！！两者都浏览器兼容性不好</p>
+<h3 id="b-动态脚本元素"><a href="#b-动态脚本元素" class="headerlink" title="b.动态脚本元素"></a>b.动态脚本元素</h3><p>js文件在script被添加到页面时开始下载， 下载完立即执行。无论何时启动下载，下载和执行过程不会阻塞页面其他进程<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">script.type = <span class="string">'javascript'</span>;</span><br><span class="line">script.src= <span class="string">'file1.js'</span>;</span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(script);</span><br></pre></td></tr></table></figure></p>
+<p>动态加载js文件的封装函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScript</span>(<span class="params">url, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">    script.type = <span class="string">'text/javascript'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(script.readyState) &#123;<span class="comment">//IE当script下载完时，会触发readystatechange事件，其readyState属性的值反映了下载状态</span></span><br><span class="line">        script.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(script.readyState == <span class="string">'loaded'</span> || script.readyState == <span class="string">'complete'</span>) &#123;<span class="comment">//loaded下载完成 complete所有数据准备就绪</span></span><br><span class="line">                script.onreadystatechange = <span class="literal">null</span>;</span><br><span class="line">                callback();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        script.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="comment">//非IE会触发onload事件</span></span><br><span class="line">            callback();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    script.src = url;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>！！！1. 兼容好 2.易用 =&gt; 最常用</p>
+<h3 id="c-XMLHttpRequest脚本注入"><a href="#c-XMLHttpRequest脚本注入" class="headerlink" title="c.XMLHttpRequest脚本注入"></a>c.XMLHttpRequest脚本注入</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'file1.js'</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span> || xhr.status == <span class="number">304</span>) &#123;</span><br><span class="line">            <span class="comment">//2xx表示有效相应，304从缓存读取</span></span><br><span class="line">            <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">            script.type = <span class="string">'javascript'</span>;</span><br><span class="line">            script.text = xhr.responseText;</span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+<p>1.下载js但不立即执行，script添加到页面中才执行 2.兼容性好<br>！！！局限性：js文件和所请求页面必须处于相同的域，因此大型web应用通常不会采用XHR脚本注入</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/03/search/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/03/03/search/" class="post-title-link" itemprop="url">search</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-03 12:47:37" itemprop="dateCreated datePublished" datetime="2019-03-03T12:47:37+08:00">2019-03-03</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/03/sort-0/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/03/03/sort-0/" class="post-title-link" itemprop="url">js数据结构与算法--排序和搜索算法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-03 12:47:25" itemprop="dateCreated datePublished" datetime="2019-03-03T12:47:25+08:00">2019-03-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-05 10:45:40" itemprop="dateModified" datetime="2019-03-05T10:45:40+08:00">2019-03-05</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ArrayList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> array = [];</span><br><span class="line">    <span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">        array.push(item);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.toString = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="冒泡排序-O-n²"><a href="#冒泡排序-O-n²" class="headerlink" title="冒泡排序 O(n²)"></a>冒泡排序 O(n²)</h2><p>比较任何两个相邻的项，如果第一个比第二个大，则交换他们。元素项向上移动至正确位置的顺序，好像冒泡。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.bubbleSort = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> length = array.length;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;length<span class="number">-1</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(array[j] &gt; array[j+<span class="number">1</span>]) &#123;</span><br><span class="line">                swap(array, j, j+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.modifiedBubbleSort = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> length = array.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;length<span class="number">-1</span>-i; j++) &#123; <span class="comment">//去除不需要的比较</span></span><br><span class="line">            <span class="keyword">if</span>(array[j] &gt; array[j+<span class="number">1</span>]) &#123;</span><br><span class="line">                swap(array, j, j+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> swap = <span class="function"><span class="keyword">function</span>(<span class="params">array, index1, index2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aux = array[index1];</span><br><span class="line">    array[index1] = array[index2];</span><br><span class="line">    array[index2] = aux;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="选择排序-O-n²"><a href="#选择排序-O-n²" class="headerlink" title="选择排序 O(n²)"></a>选择排序 O(n²)</h2><p>找到最小值放置在第一位，找到第二小的值放置在第二位。。。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.selectionSort = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> length = array.length;</span><br><span class="line">    <span class="keyword">var</span> indexMin;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;length<span class="number">-1</span>; i++) &#123;<span class="comment">//每一轮确定一位</span></span><br><span class="line">        indexMin = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=i; j&lt;length; j++) &#123;<span class="comment">//从i到最后一位中找最小值</span></span><br><span class="line">            <span class="keyword">if</span>(array[indexMin] &gt; array[j]) &#123;</span><br><span class="line">                indexMin = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i !== indexMin) &#123;</span><br><span class="line">            swap(i, indexMin);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.insertionSort =</span><br></pre></td></tr></table></figure>
+<h1 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h1>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/02/graph/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1400,458 +1851,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/02/26/stack/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/02/26/stack/" class="post-title-link" itemprop="url">js数据结构与算法--栈</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-26 19:26:35 / 修改时间：20:08:18" itemprop="dateCreated datePublished" datetime="2019-02-26T19:26:35+08:00">2019-02-26</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="栈-Stack"><a href="#栈-Stack" class="headerlink" title="栈 Stack"></a>栈 Stack</h3><p><img src="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=b4cf8cd69925bc313f5009ca3fb6e6d4/8b82b9014a90f603eab7c55f3912b31bb051eda7.jpg" alt="栈"></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Stack</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> items = [];</span><br><span class="line">        <span class="keyword">this</span>.push = <span class="function"><span class="keyword">function</span> (<span class="params">ele</span>) </span>&#123;</span><br><span class="line">            items.push(ele);</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">this</span>.pop = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> items.pop();</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">this</span>.peek = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> items[items.length - <span class="number">1</span>];</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> items.length == <span class="number">0</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> items.length;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.clear = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            items = [];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.print = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(items.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h3><h2 id="1-十进制转二进制"><a href="#1-十进制转二进制" class="headerlink" title="1.十进制转二进制"></a>1.十进制转二进制</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tenToTwo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> s = <span class="keyword">new</span> Stack();</span><br><span class="line">    <span class="keyword">let</span> res = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">let</span> yushu;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (num &gt; <span class="number">0</span>) &#123;<span class="comment">//一直除以2，直到为1</span></span><br><span class="line">        yushu = num % <span class="number">2</span>;</span><br><span class="line">        s.push(yushu);<span class="comment">//余数入栈</span></span><br><span class="line">        num = <span class="built_in">Math</span>.floor(num / <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (s.size()) &#123;<span class="comment">//余数依次出栈</span></span><br><span class="line">        res += s.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(tenToTwo(<span class="number">5</span>))<span class="comment">//101</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-十进制转任意进制"><a href="#2-十进制转任意进制" class="headerlink" title="2.十进制转任意进制"></a>2.十进制转任意进制</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baseConverter</span>(<span class="params">num, base</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> s = <span class="keyword">new</span> Stack();</span><br><span class="line">    <span class="keyword">let</span> res = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">let</span> yushu;</span><br><span class="line">    <span class="keyword">const</span> digits = <span class="string">'0123456789ABCDEF'</span>;<span class="comment">//16进制时，10及以后数字对应ABCDEF</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        yushu = num % base;</span><br><span class="line">        s.push(yushu);</span><br><span class="line">        num = <span class="built_in">Math</span>.floor(num / base);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (s.size()) &#123;</span><br><span class="line">        res += digits[s.pop()];<span class="comment">//对应digits</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(baseConverter(<span class="number">10</span>, <span class="number">8</span>))<span class="comment">//12</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-平衡圆括号"><a href="#3-平衡圆括号" class="headerlink" title="3.平衡圆括号"></a>3.平衡圆括号</h2><p>遍历每一位，如果是（就入栈，）就出栈， 若出现）时，栈为空，说明没有与之匹配的（， 直接返回false。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bracketBalance</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> s = <span class="keyword">new</span> Stack();</span><br><span class="line">    <span class="keyword">const</span> temp = str.split(<span class="string">""</span>);</span><br><span class="line">    <span class="keyword">let</span> flag;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (temp.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    temp.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (item == <span class="string">'('</span>) &#123;</span><br><span class="line">            s.push(<span class="string">'('</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.size() == <span class="number">0</span>) &#123;</span><br><span class="line">                flag = <span class="literal">false</span>;<span class="comment">//直接retuan false不行</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                s.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="literal">false</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> flag;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> s.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="4-汉诺塔"><a href="#4-汉诺塔" class="headerlink" title="4.汉诺塔"></a>4.汉诺塔</h2><p>有a,b,c三个柱子，起始时， a柱上有num个圆盘，从下至上依次变小，问如何把这些圆盘从下面开始按大小顺序重新摆放在另一根柱子上，例如c。并且规定，在小圆盘上不能放大圆盘，在三根柱子之间一次只能移动一个圆盘。<br>借由下图，我们可以看出应该用递归思想。想要把n个圆盘从a挪至c, 则可以考虑，把a上n-1个圆盘挪至b, 再把a最底层的放至c，再把b上的n-1个圆盘放至c。 这三个步骤组成了hanoi, 每次递归都要经历这三步，直到n为0时，不需移动。</p>
-<p><img src="https://img-blog.csdn.net/20180526183834681?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3ODczMzEw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="汉诺塔"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">solveHanoi</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="keyword">new</span> Stack();</span><br><span class="line">    <span class="keyword">let</span> b = <span class="keyword">new</span> Stack();</span><br><span class="line">    <span class="keyword">let</span> c = <span class="keyword">new</span> Stack();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为方便打印步骤，给每个栈一个name属性。</span></span><br><span class="line">    a.name = <span class="string">'a'</span>;</span><br><span class="line">    b.name = <span class="string">'b'</span>;</span><br><span class="line">    c.name = <span class="string">'c'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(num) &#123;<span class="comment">//由大至小进栈</span></span><br><span class="line">        a.push(num);</span><br><span class="line">        num--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    hanoi(a.size(), a, b, c);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hanoi</span>(<span class="params">n, a, b, c</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            hanoi(n - <span class="number">1</span>, a, c, b);</span><br><span class="line">            <span class="comment">//将a柱子的最上面的盘子移到c柱子</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">' 移动 '</span>+ n +  <span class="string">' 号圆盘 '</span> + <span class="string">' 从 '</span> + a.name +  <span class="string">' 移动到 '</span> +  c.name);</span><br><span class="line">            c.push(a.pop());</span><br><span class="line">            hanoi(n - <span class="number">1</span>, b, a, c);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/02/26/begining/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/02/26/begining/" class="post-title-link" itemprop="url">新开始呀</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-26 16:06:53 / 修改时间：16:09:29" itemprop="dateCreated datePublished" datetime="2019-02-26T16:06:53+08:00">2019-02-26</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>时隔7个月，开始用这个blog！ 最近在复习准备春招，从数据结构开始，希望每天都能来打卡！</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2018/07/28/html/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2018/07/28/html/" class="post-title-link" itemprop="url">html&css</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-07-28 11:07:30 / 修改时间：11:19:47" itemprop="dateCreated datePublished" datetime="2018-07-28T11:07:30+08:00">2018-07-28</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#html&amp;css笔面试基础题整理</p>
-<p>##html</p>
-<p>##css</p>
-<p>###1.css盒模型</p>
-<p>简介：就是用来装页面上的元素的矩形区域。CSS中的盒子模型包括IE盒子模型和标准的W3C盒子模型。<br>box-sizing(有3个值哦)：border-box,padding-box,content-box.</p>
-<p><img src="https://user-images.githubusercontent.com/17233651/42498021-b4dd6a46-845d-11e8-8bd9-ac2d90985f2a.png" alt="标准盒模型"></p>
-<p>width = content宽</p>
-<p><img src="https://user-images.githubusercontent.com/17233651/42498075-d3496e3a-845d-11e8-919c-eb3a7866883b.png" alt="IE盒模型"></p>
-<p>width = content宽+padding+border</p>
-<p>在CSS3中引入了box-sizing属性，<br>box-sizing:content-box;表示标准的盒子模型，<br>box-sizing:border-box表示的是IE盒子模型<br>box-sizing:padding-box,这个属性值的宽度包含了左右padding+width<br>也很好理解性记忆，包含什么，width就从什么开始算起。</p>
-<p>###2.画一条0.5px的线</p>
-<p>采用meta viewport的方式</p>
-<p>采用 border-image的方式</p>
-<p>采用transform: scale()的方式</p>
-<p>###3.link标签和import标签的区别</p>
-<p>link属于html标签，而@import是css提供的<br>页面被加载时，link会同时被加载，而@import引用的css会等到页面加载结束后加载。<br>link是html标签，因此没有兼容性，而@import只有IE5以上才能识别。<br>link方式样式的权重高于@import的。</p>
-<p>###4.transition和animation的区别</p>
-<p>Animation和transition大部分属性是相同的，他们都是随时间改变元素的属性。<br>他们的主要区别是transition需要触发一个事件才能改变属性，而animation不需要触发任何事件的情况下才会随时间改变属性值；<br>并且transition为2帧，从开始状态到结束状态，而animation可以多个关键帧，实现自由动画。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1898,7 +1897,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
