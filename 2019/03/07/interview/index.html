@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.0.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="html&amp;amp;css1.语义化html: 正确的标签做正确的事情+： a.有利于SEO爬虫更好地解析网页    b.没有css时，网页结构更清晰，可读性强    c.便于开发者阅读，团队开发和维护 2.html5新增标签：      … 3.position： static/absolute/relative/fixed/inheritabsolute: 相对于最近的有定位的父级进行定位，如果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试准备(持续更新))">
+<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/2019/03/07/interview/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="html&amp;amp;css1.语义化html: 正确的标签做正确的事情+： a.有利于SEO爬虫更好地解析网页    b.没有css时，网页结构更清晰，可读性强    c.便于开发者阅读，团队开发和维护 2.html5新增标签：      … 3.position： static/absolute/relative/fixed/inheritabsolute: 相对于最近的有定位的父级进行定位，如果">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/1265396/201711/1265396-20171119143703656-1332857321.png">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/1265396/201711/1265396-20171119144229156-49945808.png">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551958322566&di=d7ee6cb720cebd27c61c9a2d93f12ed4&imgtype=0&src=http%3A%2F%2Fs10.sinaimg.cn%2Fbmiddle%2F3f297c5c4d95709bb20c9%26690">
+<meta property="og:updated_time" content="2019-03-07T14:11:37.521Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试准备(持续更新))">
+<meta name="twitter:description" content="html&amp;amp;css1.语义化html: 正确的标签做正确的事情+： a.有利于SEO爬虫更好地解析网页    b.没有css时，网页结构更清晰，可读性强    c.便于开发者阅读，团队开发和维护 2.html5新增标签：      … 3.position： static/absolute/relative/fixed/inheritabsolute: 相对于最近的有定位的父级进行定位，如果">
+<meta name="twitter:image" content="https://images2017.cnblogs.com/blog/1265396/201711/1265396-20171119143703656-1332857321.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/2019/03/07/interview/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>面试准备(持续更新)) | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/07/interview/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试准备(持续更新))
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-07 13:22:54 / 修改时间：22:11:37" itemprop="dateCreated datePublished" datetime="2019-03-07T13:22:54+08:00">2019-03-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="html-amp-css"><a href="#html-amp-css" class="headerlink" title="html&amp;css"></a>html&amp;css</h1><p>1.语义化html: 正确的标签做正确的事情<br>+： a.有利于SEO爬虫更好地解析网页<br>    b.没有css时，网页结构更清晰，可读性强<br>    c.便于开发者阅读，团队开发和维护</p>
+<p>2.html5新增标签：<video> <audio> <canvas> <svg> <section> <nav> <footer>…</footer></nav></section></svg></canvas></audio></video></p>
+<p>3.position： static/absolute/relative/fixed/inherit<br>absolute: 相对于最近的有定位的父级进行定位，如果没有，则相对于文档。脱离原位置。<br>relative: 相对于原来的位置（出生时）进行定位。保留原来位置。</p>
+<p>4.css水平垂直居中<br>a.position定位 ie9以下不支持transform-translate 需要用margin-left/top宽高的一半<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line"><span class="selector-tag">top</span>: 50%;</span><br><span class="line"><span class="selector-tag">left</span>: 50%;</span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">translate</span>(<span class="selector-tag">-50</span>%, <span class="selector-tag">-50</span>%);</span><br></pre></td></tr></table></figure></p>
+<p>b.flex布局<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">display</span>: <span class="selector-tag">flex</span>;</span><br><span class="line"><span class="selector-tag">justify-content</span>: <span class="selector-tag">center</span>; <span class="comment">/*主轴*/</span></span><br><span class="line"><span class="selector-tag">align-items</span>: <span class="selector-tag">center</span>; <span class="comment">/*侧轴*/</span></span><br></pre></td></tr></table></figure></p>
+<p>5.margin塌陷： 父子嵌套，父垂直方向的margin，取两者最大值。当给子元素设置margin-top时，父子会一同向下移动，子相对于父不变。<br>  解决方法： 给父级设置border或padding/BFC四选一。</p>
+<p>  margin合并： 兄弟元素垂直方向上的margin是合并的，取最大值。<br>  解决方法： 添加父级BFC，但改变了html结构，不好/计算好间距即可。</p>
+<p>6.浮动元素产生浮动流： 块级元素看不到，BFC和文本元素能看到<br>eg: box向左浮动，wrapper看不到，所有无法撑开。</p>
+<p>清除浮动流： 给最后一个浮动元素设置伪元素<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">span</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">    <span class="attribute">display</span>: block; <span class="comment">/*clear必须是块级元素才生效*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>给父级设置BFC，父元素的宽高会紧紧抱住子元素。</p>
+<p>7.块级元素： div/ul/li/h1-h6/p<br>  行级元素： span/em/strong/a/br<br>  行级块元素: img/input</p>
+<p>8.css选择器权重：<br>!important      –  Infinity<br>行间样式         –  1000<br>id              –  100<br>class/属性/伪类  –  10<br>标签/伪元素      –  1<br>通配符           –  0</p>
+<p>9.inline元素设置width,height无效，垂直方向margin,padding无效， 水平方向margin,padding有效。</p>
+<p>10.box-sizing: content-box; （标准盒模型）<br>   box-sizing: border-box;  （混杂IE盒模型）<br>   <img src="https://images2017.cnblogs.com/blog/1265396/201711/1265396-20171119143703656-1332857321.png" alt="标准"><br>   <img src="https://images2017.cnblogs.com/blog/1265396/201711/1265396-20171119144229156-49945808.png" alt="混杂"></p>
+<p>11.BFC块级格式上下文<br>在父级上设： position: absolute;<br>            float: left/right;<br>            display: inline-block;<br>            overflow: hidden;</p>
+<p>12.px,rem,em的区别<br>px: 固定的像素，一旦设置就无法适应页面大小而改变<br>em/rem: 更灵活，适合响应式布局</p>
+<p>em: 子元素字体大小的em相对于父元素字体大小<br>    元素的width/height/padding/margin用em相对于该元素的font-size<br>rem: 相对于根元素<html></html></p>
+<p>13.line-height继承的，最好不设单位，可随font-size比例缩放。</p>
+<h1 id="js"><a href="#js" class="headerlink" title="js"></a>js</h1><p>1.5个基本数据类型：number, string, boolean, null, undefined<br>  引用类型: array, object, function</p>
+<p>  typeof a 返回值：’number’, ‘string’, ‘boolean’, ‘undefined’, ‘object’(object/null/array), ‘function’</p>
+<p>  判断object/array的三种方法：<br>  1.obj.constructor —— Array() or Object()<br>  2.obj instanceOf Array —— ture or false<br>  3.Object.prototype.toString.call(obj)—— ‘[object Array]’ or ‘[object Object]’</p>
+<p>  Object/Array/Boolean/Number.toString都是被改写的一个function 用于将xxx转为字符串<br>  num.toString(n) 把num转为n进制的数</p>
+<p>2.setInterval每隔多少秒放入执行队列，空闲时再执行，真正时间&gt; 间隔不准，可以用setTimeout嵌套代替</p>
+<p>3.闭包：能够读取其他函数内部变量的函数<br>  作用：a.实现公有变量 b.数据缓存 c.构造函数属性私有化 d.模块化开发</p>
+<p>4.原型：构造函数制造出对象的 公有祖先。通过该构造函数产生的对象，可以继承原型上的属性和方法。<br>    -自己有时，取自己的而不是原型的，不可以改变原型上的，所有修改只作用于自己<br>    car1.<em>proto</em> 指向car1的构造函数的prototype</p>
+<p>  原型链： 每个对象的<em>proto</em>属性的指向 形成的链<br>        顶端为Object.prototype–null</p>
+<p>5.继承：<br>a.原型链（传统），但过多继承没用的属性<br>b.借用构造函数，利用call/apply，但不能继承借用构造函数的原型，多走一个函数浪费效率<br>c.共享原型，但改变自己的原型，另一个也改变<br>d.圣杯模式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherit</span>(<span class="params">Target, Origin</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">    F.prototype = Origin.prototype;</span><br><span class="line">    Target.prototype = <span class="keyword">new</span> F();</span><br><span class="line">    Target.prototype.constructor = Target;</span><br><span class="line">    Target.prototype.uber = Origin.prototype;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>6.浅克隆<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clone</span>(<span class="params">origin, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = target || &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> origin) &#123;</span><br><span class="line">        target[prop] = origin[prop];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>深克隆<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">origin, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = target || &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> origin) &#123;</span><br><span class="line">        <span class="keyword">if</span>(origin.hasOwnProperty(prop)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">typeof</span>(origin[prop]) == <span class="string">'object'</span> &amp;&amp; origin[prop] !== <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">Object</span>.prototype.toString.call(origin[prop]) == <span class="string">'[object Array]'</span>) &#123;</span><br><span class="line">                    target[prop] = [];</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    target[prop] = &#123;&#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                deepClone(origin[prop], target[prop]);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                target[prop] = origin[prop]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>7.遍历数组 map vs forEach<br>map: 返回一个新数组（函数处理后的值），不检测空数组<br>forEach: 返回undefined，将每个元素传给回调，空数组不调用</p>
+<p>8.for…in… vs for… of…<br>for…in…: 遍历对象，索引值为prop，会遍历原型上的属性和方法<br>for…of…: 遍历数组元素值， 不遍历原型上的属性和方法</p>
+<p>9.let/const/var区别<br>var: 函数作用域，变量声明提升<br>let: 块级作用域，不存在变量声明提升（一定要先声明后使用），不可重复声明<br>const: 块级作用域，常量（声明必须赋值）</p>
+<p>块级作用域： {…} 外面访问不到，报错ReferenceError</p>
+<p>10.EventLoop：主线程从任务队列中读取事件，不断循环。<br>   执行顺序： 一个macro-task =&gt; 所有micro-task =&gt; 一个macro-task …</p>
+<p>macro-task: 主线程，setTimeout, setInterval, setImmediate, I/O, UI rendering<br>micro-task: process.nectTick, Promise, Object.observe, Mutation Observer<br>*promise的构造部分是同步执行的</p>
+<p>11.浏览器内核<br>Chrome: Webkit – Blink<br>Safari: Webkit<br>Firefox: Gecko<br>IE: trident<br>Opera: Presto – Webkit – Blink</p>
+<p>12.new执行原理<br>a.创建一个新对象 var obj = new Object();<br>b.this指向新对象<br>c.obj.<em>proto</em>指向Object.prototype<br>d.执行（为obj添加方法和属性） 返回新对象</p>
+<p>13.apply/call/bind区别<br>相同点：改变this指向<br>不同点： call 第二位参数起传参<br>        apply 第二位传参数列表<br>        bind  第二位传参数列表， 返回对应函数，上下文为传入对象，需要调用时再执行 func.bind(obj)()</p>
+<p>手写bind方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">var</span> args = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; len=<span class="built_in">arguments</span>.length; i&lt;len; i++) &#123;</span><br><span class="line">        args.push(<span class="built_in">arguments</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> bindArgs = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">        self.apply(context, args.concat(bindArr));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="14">
+<li>Ajax 通过异步通信实现布局刷新<br>-:受同源策略限制， 不安全（与服务器交互细节暴露）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest) &#123;</span><br><span class="line">    xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    xhr = <span class="keyword">new</span> ActiveXObject(<span class="string">'Microsoft.XMLHTTP'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'./getNews.php'</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send();</span><br><span class="line"></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(xhr.status == <span class="number">200</span>) &#123;</span><br><span class="line">            callback(xhr.responseText);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果是post请求</span></span><br><span class="line">xhr.open(<span class="string">'POST'</span>, url, flag);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'content-type'</span>, <span class="string">'application/x-www-form-urlencoded'</span>);</span><br><span class="line">xhr.send(data);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>15.同源策略： 协议/域名/端口相同</p>
+<p>16.TCP三次握手四次挥手<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1551958322566&amp;di=d7ee6cb720cebd27c61c9a2d93f12ed4&amp;imgtype=0&amp;src=http%3A%2F%2Fs10.sinaimg.cn%2Fbmiddle%2F3f297c5c4d95709bb20c9%26690" alt="三握四挥"></p>
+<p>17.TCP与UDP区别<br>TCP: 面向连接，正式收发数据前，必须建立可靠的连接（三次握手）。<br>UDP: 面向非连接，通信前无需建立连接，不管对方状态，直接发包。</p>
+<p>18.常见状态码<br>2xx成功 – 200成功<br>             204请求处理成功，但没有资源返回<br>             206对资源某一部分请求<br>3xx重定向–301永久重定向，自动转到新位置<br>           302临时重定向，继续用原有位置<br>           304自从上次请求后，资源未修改，不返回网页内容<br>4xx客户端–400请求报文中存在语法错误<br>          401需要http认证<br>          403对请求资源的访问被服务器拒绝了<br>          404页面不存在<br>5xx服务器–500内部资源故障<br>          503服务器不可用（超负载/停机维护）</p>
+<p>19.GET/POST区别<br>a.传参方式不同： GET使用url；POST直接放在请求主体中<br>b.POST比GET传输数据更多 因为GET用url传参，长度有限制；POST由于服务器安全性也有限制但比GET多<br>c.POST比GET安全 GET数据直接暴露在url上，可能CSRF攻击；POST数据在主体中较安全<br>d.POST比GET慢 POST在接受数据前，会把先将请求头发给服务器确认</p>
+<p>20.跨域方法<br>a.JSONP<br>b.<br>c.<br>d.</p>
+<p>21.从输入url到页面加载完成到底发生了什么？<br>1、浏览器的地址栏输入URL并按下回车。<br>2、浏览器查找当前URL是否存在缓存，并比较缓存是否过期。（expire/max-age last-modified/etag）<br>3、DNS解析URL对应的IP。<br>4、根据IP建立TCP连接（三次握手）。<br>5、HTTP发起请求。<br>6、服务器处理请求，浏览器接收HTTP响应。<br>7、渲染页面，构建DOM树。<br>8、关闭TCP连接（四次挥手）。</p>
+<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/03/06/highperformance4/" rel="next" title="高性能javascript4--算法和流程控制（循环，条件，递归）">
+                <i class="fa fa-chevron-left"></i> 高性能javascript4--算法和流程控制（循环，条件，递归）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JOYCE</p>
+              <p class="site-description motion-element" itemprop="description">Do what you want!</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#html-amp-css"><span class="nav-number">1.</span> <span class="nav-text">html&amp;css</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#js"><span class="nav-number">2.</span> <span class="nav-text">js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#框架"><span class="nav-number">3.</span> <span class="nav-text">框架</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JOYCE</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/blog/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/blog/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/blog/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
