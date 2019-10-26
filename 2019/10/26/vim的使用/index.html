@@ -96,24 +96,24 @@
 
 
 
-  <meta name="description" content="时隔7个月，开始用这个blog！ 最近在复习准备春招，从数据结构开始，希望每天都能来打卡！">
+  <meta name="description" content="最近公司的代码库，突然要求强制加hook，然后发现每次commit代码的message必须以指定代码开头，不然就无法push到远程。一直报错： commit id cannot be empty。但是！有一次填写commit message时，我加了-，就报错！于是我只能修改这一次的message，再重新push。以前从来没这样操作过，于是，我去百度了一下： git commit –amend 可">
 <meta property="og:type" content="article">
-<meta property="og:title" content="新开始呀">
-<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/2019/02/26/begining/index.html">
+<meta property="og:title" content="vim的最基本使用">
+<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/2019/10/26/vim的使用/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="时隔7个月，开始用这个blog！ 最近在复习准备春招，从数据结构开始，希望每天都能来打卡！">
+<meta property="og:description" content="最近公司的代码库，突然要求强制加hook，然后发现每次commit代码的message必须以指定代码开头，不然就无法push到远程。一直报错： commit id cannot be empty。但是！有一次填写commit message时，我加了-，就报错！于是我只能修改这一次的message，再重新push。以前从来没这样操作过，于是，我去百度了一下： git commit –amend 可">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-26T08:09:29.868Z">
+<meta property="og:updated_time" content="2019-10-26T12:35:29.980Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="新开始呀">
-<meta name="twitter:description" content="时隔7个月，开始用这个blog！ 最近在复习准备春招，从数据结构开始，希望每天都能来打卡！">
+<meta name="twitter:title" content="vim的最基本使用">
+<meta name="twitter:description" content="最近公司的代码库，突然要求强制加hook，然后发现每次commit代码的message必须以指定代码开头，不然就无法push到远程。一直报错： commit id cannot be empty。但是！有一次填写commit message时，我加了-，就报错！于是我只能修改这一次的message，再重新push。以前从来没这样操作过，于是，我去百度了一下： git commit –amend 可">
 
 
 
 
 
 
-  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/2019/02/26/begining/"/>
+  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/2019/10/26/vim的使用/"/>
 
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>新开始呀 | Hexo</title>
+  <title>vim的最基本使用 | Hexo</title>
   
 
 
@@ -288,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/02/26/begining/"/>
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/10/26/vim的使用/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JOYCE"/>
@@ -305,7 +305,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">新开始呀
+          <h1 class="post-title" itemprop="name headline">vim的最基本使用
 
               
             
@@ -331,7 +331,7 @@
                 
               
 
-              <time title="创建时间：2019-02-26 16:06:53 / 修改时间：16:09:29" itemprop="dateCreated datePublished" datetime="2019-02-26T16:06:53+08:00">2019-02-26</time>
+              <time title="创建时间：2019-10-26 20:04:08 / 修改时间：20:35:29" itemprop="dateCreated datePublished" datetime="2019-10-26T20:04:08+08:00">2019-10-26</time>
             
 
             
@@ -370,7 +370,44 @@
       
 
       
-        <p>时隔7个月，开始用这个blog！ 最近在复习准备春招，从数据结构开始，希望每天都能来打卡！</p>
+        <p>最近公司的代码库，突然要求强制加hook，然后发现每次commit代码的message必须以指定代码开头，不然就无法push到远程。<br>一直报错： commit id cannot be empty。<br>但是！有一次填写commit message时，我加了-，就报错！于是我只能修改这一次的message，再重新push。<br>以前从来没这样操作过，于是，我去百度了一下：</p>
+<p>git commit –amend 可以修改最近一次commit message</p>
+<p>然而！进入了我不太会的vi界面！于是就有了这篇文章！</p>
+<h3 id="三种模式"><a href="#三种模式" class="headerlink" title="三种模式"></a>三种模式</h3><p>基本上 vi/vim 共分为三种模式，分别是<br>命令模式（Command mode），<br>输入模式（Insert mode），<br>底线命令模式（Last line mode）。 </p>
+<p>这三种模式的作用分别是：</p>
+<h2 id="命令模式："><a href="#命令模式：" class="headerlink" title="命令模式："></a>命令模式：</h2><p><em>用户刚刚启动 vi/vim，便进入了命令模式。</em><br>此状态下敲击键盘动作会被Vim识别为命令，而非输入字符。</p>
+<p>以下是常用的几个命令：</p>
+<ul>
+<li>i 切换到<em>输入</em>模式，以输入字符。</li>
+<li>x <em>删除</em>当前光标所在处的字符。</li>
+<li>: 切换到<em>底线命令</em>模式，以在最底一行输入命令。</li>
+</ul>
+<p>命令模式只有一些最基本的命令，因此仍要依靠底线命令模式输入更多命令。</p>
+<h2 id="输入模式："><a href="#输入模式：" class="headerlink" title="输入模式："></a>输入模式：</h2><p>在命令模式下按下i就进入了输入模式。</p>
+<p>在输入模式中，可以使用以下按键：</p>
+<ul>
+<li>字符按键以及Shift组合，输入字符</li>
+<li>ENTER，回车键，换行</li>
+<li>BACK SPACE，退格键，删除光标前一个字符</li>
+<li>DEL，删除键，删除光标后一个字符</li>
+<li>方向键，在文本中移动光标</li>
+<li>HOME/END，移动光标到行首/行尾</li>
+<li>Page Up/Page Down，上/下翻页</li>
+<li>Insert，切换光标为输入/替换模式，光标将变成竖线/下划线</li>
+<li>ESC，退出输入模式，切换到命令模式</li>
+</ul>
+<h2 id="底线命令模式"><a href="#底线命令模式" class="headerlink" title="底线命令模式"></a>底线命令模式</h2><p>在命令模式下按下:（英文冒号）就进入了底线命令模式。<br>在输入模式下按下shift + : 就进入了底线命令模式。</p>
+<p>底线命令模式可以输入单个或多个字符的命令，可用的命令非常多。</p>
+<p>在底线命令模式中，基本的命令有（已经省略了冒号）：</p>
+<ul>
+<li>q 退出程序</li>
+<li>w 保存文件</li>
+<li>按ESC键可随时退出底线命令模式</li>
+</ul>
+<p>于是！想要修改最近一次commit message时，使用git commit –amend 进入vim后：</p>
+<p>命令模式–按i进入输入模式–&gt;<br>此时可以修改第一行的commit message–修改完成后，按shift+i进入底线命令模式–&gt;<br>此时光标来到最后一行–输入wq!–&gt;强制保存并退出</p>
+<p>最近一次的commit message就修改完成啦~</p>
+<p>这次操作只用了非常简单，为了以防万一，贴上vim比较全的操作用法。<br><a href="https://www.runoob.com/linux/linux-vim.html" target="_blank" rel="noopener">Linux vi/vim–菜鸟教程</a></p>
 
       
     </div>
@@ -401,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/07/28/html/" rel="next" title="html&css">
-                <i class="fa fa-chevron-left"></i> html&css
+              <a href="/blog/2019/09/02/webank-interview/" rel="next" title="webank-interview">
+                <i class="fa fa-chevron-left"></i> webank-interview
               </a>
             
           </div>
@@ -410,10 +447,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/02/26/stack/" rel="prev" title="js数据结构与算法--栈">
-                js数据结构与算法--栈 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -457,8 +490,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -515,6 +557,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#三种模式"><span class="nav-number">1.</span> <span class="nav-text">三种模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式："><span class="nav-number"></span> <span class="nav-text">命令模式：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入模式："><span class="nav-number"></span> <span class="nav-text">输入模式：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#底线命令模式"><span class="nav-number"></span> <span class="nav-text">底线命令模式</span></a></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
