@@ -96,23 +96,24 @@
 
 
 
-  <meta name="description" content="Do what you want!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/archives/2018/07/index.html">
+  <meta name="description" content="setState可能是异步的可能： 当在html元素的事件中，setState是异步的；      其他都是同步的。 在实际开发中，把所有setState都当成异步。 同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变this.setState(prevState =&amp;gt; {}); React会对异步的setState优化，合并操作。全部更新后，再执行rend">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入认识setState">
+<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/2019/11/11/react-深入认识setState/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Do what you want!">
+<meta property="og:description" content="setState可能是异步的可能： 当在html元素的事件中，setState是异步的；      其他都是同步的。 在实际开发中，把所有setState都当成异步。 同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变this.setState(prevState =&amp;gt; {}); React会对异步的setState优化，合并操作。全部更新后，再执行rend">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-11T14:31:02.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="Do what you want!">
+<meta name="twitter:title" content="深入认识setState">
+<meta name="twitter:description" content="setState可能是异步的可能： 当在html元素的事件中，setState是异步的；      其他都是同步的。 在实际开发中，把所有setState都当成异步。 同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变this.setState(prevState =&amp;gt; {}); React会对异步的setState优化，合并操作。全部更新后，再执行rend">
 
 
 
 
 
 
-  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/archives/2018/07/"/>
+  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/2019/11/11/react-深入认识setState/"/>
 
 
 
@@ -122,7 +123,7 @@
   };
 </script>
 
-  <title>归档 | Hexo</title>
+  <title>深入认识setState | Hexo</title>
   
 
 
@@ -170,7 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -225,7 +226,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -246,19 +247,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -284,191 +272,175 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/11/11/react-深入认识setState/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">深入认识setState
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-11 22:10:31 / 修改时间：22:31:02" itemprop="dateCreated datePublished" datetime="2019-11-11T22:10:31+08:00">2019-11-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 30 篇日志。 继续努力。
-      </span>
-      
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/blog/2018/07/28/html/" itemprop="url">
             
-              <span itemprop="name">html&css</span>
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-28T11:07:30+08:00"
-              content="2018-07-28">
-          07-28
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
 
+          
 
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/blog/2018/07/27/SORT/" itemprop="url">
-            
-              <span itemprop="name">SORT</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-27T23:08:53+08:00"
-              content="2018-07-27">
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/blog/2018/07/24/howtoUseMarkdown/" itemprop="url">
-            
-              <span itemprop="name">Markdown起步</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-24T23:12:11+08:00"
-              content="2018-07-24">
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h2 id="setState可能是异步的"><a href="#setState可能是异步的" class="headerlink" title="setState可能是异步的"></a>setState可能是异步的</h2><p>可能： 当在html元素的事件中，setState是异步的；<br>      其他都是同步的。</p>
+<p>在实际开发中，把所有setState都当成异步。</p>
+<h2 id="同步调用多次setState-需要用setState的函数形式，得到最新状态再改变"><a href="#同步调用多次setState-需要用setState的函数形式，得到最新状态再改变" class="headerlink" title="同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变"></a>同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变</h2><p>this.setState(prevState =&gt; {});</p>
+<h2 id="React会对异步的setState优化，合并操作。全部更新后，再执行render"><a href="#React会对异步的setState优化，合并操作。全部更新后，再执行render" class="headerlink" title="React会对异步的setState优化，合并操作。全部更新后，再执行render"></a>React会对异步的setState优化，合并操作。全部更新后，再执行render</h2><p>因为 操作dom消耗性能</p>
+<p>this.setState(pre =&gt; {<br>    n: pre.n + 1,<br>}, () =&gt; console.log(this.state.n));</p>
+<p>this.setState(pre =&gt; {<br>    n: pre.n + 1,<br>});</p>
+<p>this.setState(pre =&gt; {<br>    n: pre.n + 1,<br>})</p>
+<p>将3次setState放入队列中，<br>逐一改变，<br>全部完成后，<br>render,<br>执行回调console.log(this.state.n) — 3</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/blog/2018/07/23/hello-world/" itemprop="url">
-            
-              <span itemprop="name">Hello World</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-23T20:37:34+08:00"
-              content="2018-07-23">
-          07-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/11/09/react1/" rel="next" title="react1">
+                <i class="fa fa-chevron-left"></i> react1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -488,8 +460,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -546,6 +527,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#setState可能是异步的"><span class="nav-number">1.</span> <span class="nav-text">setState可能是异步的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步调用多次setState-需要用setState的函数形式，得到最新状态再改变"><span class="nav-number">2.</span> <span class="nav-text">同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React会对异步的setState优化，合并操作。全部更新后，再执行render"><span class="nav-number">3.</span> <span class="nav-text">React会对异步的setState优化，合并操作。全部更新后，再执行render</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -674,6 +672,10 @@
 
 
   
+  <script src="/blog/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -684,6 +686,8 @@
   
   
 
+
+  
 
 
   
