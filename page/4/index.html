@@ -96,24 +96,23 @@
 
 
 
-  <meta name="description" content="setState可能是异步的可能： 当在html元素的事件中，setState是异步的；      其他都是同步的。 在实际开发中，把所有setState都当成异步。 同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变this.setState(prevState =&amp;gt; {}); React会对异步的setState优化，合并操作。全部更新后，再执行rend">
-<meta property="og:type" content="article">
-<meta property="og:title" content="深入认识setState">
-<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/2019/11/11/react-深入认识setState/index.html">
+  <meta name="description" content="Do what you want!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://joyce-yunjiaoguo.github.io/blog/page/4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="setState可能是异步的可能： 当在html元素的事件中，setState是异步的；      其他都是同步的。 在实际开发中，把所有setState都当成异步。 同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变this.setState(prevState =&amp;gt; {}); React会对异步的setState优化，合并操作。全部更新后，再执行rend">
+<meta property="og:description" content="Do what you want!">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-11T14:31:02.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入认识setState">
-<meta name="twitter:description" content="setState可能是异步的可能： 当在html元素的事件中，setState是异步的；      其他都是同步的。 在实际开发中，把所有setState都当成异步。 同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变this.setState(prevState =&amp;gt; {}); React会对异步的setState优化，合并操作。全部更新后，再执行rend">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="Do what you want!">
 
 
 
 
 
 
-  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/2019/11/11/react-深入认识setState/"/>
+  <link rel="canonical" href="https://joyce-yunjiaoguo.github.io/blog/page/4/"/>
 
 
 
@@ -123,7 +122,7 @@
   };
 </script>
 
-  <title>深入认识setState | Hexo</title>
+  <title>Hexo</title>
   
 
 
@@ -171,7 +170,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -271,9 +271,9 @@
           
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -288,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/11/11/react-深入认识setState/"/>
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2018/07/23/hello-world/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JOYCE"/>
@@ -305,8 +305,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">深入认识setState
-
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2018/07/23/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
               
             
           </h1>
@@ -331,12 +333,24 @@
                 
               
 
-              <time title="创建时间：2019-11-11 22:10:31 / 修改时间：22:31:02" itemprop="dateCreated datePublished" datetime="2019-11-11T22:10:31+08:00">2019-11-11</time>
+              <time title="创建时间：2018-07-23 20:37:34" itemprop="dateCreated datePublished" datetime="2018-07-23T20:37:34+08:00">2018-07-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-10-28 08:39:58" itemprop="dateModified" datetime="2017-10-28T08:39:58+08:00">2017-10-28</time>
               
             
           </span>
@@ -370,15 +384,20 @@
       
 
       
-        <h2 id="setState可能是异步的"><a href="#setState可能是异步的" class="headerlink" title="setState可能是异步的"></a>setState可能是异步的</h2><p>可能： 当在html元素的事件中，setState是异步的；<br>      其他都是同步的。</p>
-<p>在实际开发中，把所有setState都当成异步。</p>
-<h2 id="同步调用多次setState-需要用setState的函数形式，得到最新状态再改变"><a href="#同步调用多次setState-需要用setState的函数形式，得到最新状态再改变" class="headerlink" title="同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变"></a>同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变</h2><p>this.setState(prevState =&gt; {});</p>
-<h2 id="React会对异步的setState优化，合并操作。全部更新后，再执行render"><a href="#React会对异步的setState优化，合并操作。全部更新后，再执行render" class="headerlink" title="React会对异步的setState优化，合并操作。全部更新后，再执行render"></a>React会对异步的setState优化，合并操作。全部更新后，再执行render</h2><p>因为 操作dom消耗性能</p>
-<p>this.setState(pre =&gt; {<br>    n: pre.n + 1,<br>}, () =&gt; console.log(this.state.n));</p>
-<p>this.setState(pre =&gt; {<br>    n: pre.n + 1,<br>});</p>
-<p>this.setState(pre =&gt; {<br>    n: pre.n + 1,<br>})</p>
-<p>将3次setState放入队列中，<br>逐一改变，<br>全部完成后，<br>render,<br>执行回调console.log(this.state.n) — 3</p>
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
+          
+        
       
     </div>
 
@@ -401,32 +420,12 @@
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2019/11/09/react1/" rel="next" title="react1">
-                <i class="fa fa-chevron-left"></i> react1
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/11/11/react-生命周期/" rel="prev" title="react-生命周期">
-                react-生命周期 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -436,15 +435,18 @@
   </article>
 
 
-  </div>
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
 
 
           </div>
           
-
-  
-
-
 
         </div>
         
@@ -464,17 +466,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -531,23 +524,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#setState可能是异步的"><span class="nav-number">1.</span> <span class="nav-text">setState可能是异步的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步调用多次setState-需要用setState的函数形式，得到最新状态再改变"><span class="nav-number">2.</span> <span class="nav-text">同步调用多次setState, 需要用setState的函数形式，得到最新状态再改变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React会对异步的setState优化，合并操作。全部更新后，再执行render"><span class="nav-number">3.</span> <span class="nav-text">React会对异步的setState优化，合并操作。全部更新后，再执行render</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -676,10 +652,6 @@
 
 
   
-  <script src="/blog/js/src/scrollspy.js?v=7.0.0"></script>
-<script src="/blog/js/src/post-details.js?v=7.0.0"></script>
-
-
 
   
 
@@ -690,8 +662,6 @@
   
   
 
-
-  
 
 
   
