@@ -288,6 +288,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/04/11/java2/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/04/11/java2/" class="post-title-link" itemprop="url">java2</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-11 21:59:23 / 修改时间：23:05:45" itemprop="dateCreated datePublished" datetime="2019-04-11T21:59:23+08:00">2019-04-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>java学习正式开始啦！</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>–基本数据类型<br>    –整形 byte/short/int/long<br>    –浮点型 float/double<br>    –字符型 char<br>    –布尔型 boolean<br>–引用数据类型<br>    –数组 array<br>    –类 class<br>    –接口 interface<br>    –枚举 enum<br>    –注解 @interface</p>
+<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>byte  字节型 8bit    00000000 第一位表示正负，后七位为数字范围  [-128, 127]<br>short 短整型 16bit   第一位表示正负，后15位为数字范围  [-2的15次方, 2的15次方-1]<br>int   整型   32bit   第一位表示正负，后31位为数字范围  [-2的31次方, 2的31次方-1]<br>long  长整形 64bit   第一位表示正负，后63位为数字范围  [-2的63次方, 2的63次方-1]</p>
+<p>float  单精度 32bit 第一位表示正负，前9位表示整数部分，后22位表示小数部分<br>double 双精度 64bit 第一位表示正负，前19位表示整数部分，后44位表示小数部分</p>
+<p>char 字符型 16bit Unicode编码 – 英文/数字/符号 1字节<br>                           – 中文          2字节</p>
+<p>boolean 布尔型 1bit true/false</p>
+<h3 id="字符-vs-字符串"><a href="#字符-vs-字符串" class="headerlink" title="字符 vs 字符串"></a>字符 vs 字符串</h3><pre><code>char    String
+基本    引用
+&apos;a&apos;     &quot;abc&quot;,&quot;a&quot;,&quot;&quot;,null
+</code></pre><h1 id="常量-amp-变量"><a href="#常量-amp-变量" class="headerlink" title="常量&amp;变量"></a>常量&amp;变量</h1><h2 id="常量-固定不变的值"><a href="#常量-固定不变的值" class="headerlink" title="常量 固定不变的值"></a>常量 固定不变的值</h2><p>–基本数据类型<br>–String类 eg: “abc”<br>–自定义 eg: final int UP = 1;</p>
+<h2 id="变量-内存空间中的值可变，但数据类型固定"><a href="#变量-内存空间中的值可变，但数据类型固定" class="headerlink" title="变量 内存空间中的值可变，但数据类型固定"></a>变量 内存空间中的值可变，但数据类型固定</h2><p>声明变量时，必须指定 数据类型 和 变量名（小驼峰）eg: int a; String b;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//整型在常量池中以int存储，占32bit。</span></span><br><span class="line"><span class="keyword">byte</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">short</span> b = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> c = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">long</span> d = <span class="number">2147483648L</span>;<span class="comment">////赋值给long类型的变量e时，int转为long，如果数值超过int范围2147483647 在最后+L</span></span><br><span class="line"><span class="comment">//浮点型在常量池中以double存储，占64bit。</span></span><br><span class="line"><span class="keyword">float</span> e = <span class="number">3.4F</span>;<span class="comment">//赋值给float类型的变量e时，double转为float，精度可能不准， 所以在最后+F</span></span><br><span class="line"><span class="keyword">double</span> f = <span class="number">3.4</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h1><p>同种数据类型直接按可以直接赋值，但不同数据类型需要先转换再赋值。</p>
+<h2 id="基本类型之间转换"><a href="#基本类型之间转换" class="headerlink" title="基本类型之间转换"></a>基本类型之间转换</h2><h3 id="整型间-浮点型间"><a href="#整型间-浮点型间" class="headerlink" title="整型间/浮点型间"></a>整型间/浮点型间</h3><p>比较存储空间大小<br>小–&gt;大（自动）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b = a;</span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> x = <span class="number">3.4F</span>;</span><br><span class="line"><span class="keyword">double</span> y = x;</span><br></pre></td></tr></table></figure></p>
+<p>大–&gt;小（强制）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">byte</span> b = (<span class="keyword">byte</span>)a;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> x = <span class="number">3.4</span>;</span><br><span class="line"><span class="keyword">float</span> y = (<span class="keyword">float</span>)x;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果 大 超过 小 的范围，可能会有损失</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">1000</span>;</span><br><span class="line"><span class="keyword">byte</span> b = (<span class="keyword">byte</span>)a;<span class="comment">//只取后8位 b = -24</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="整型-–-gt-浮点型"><a href="#整型-–-gt-浮点型" class="headerlink" title="整型 –&gt; 浮点型"></a>整型 –&gt; 浮点型</h3><p>因为浮点型精确程度更高，可自动转换<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">float</span> b = a; <span class="comment">// b = 1.0</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="浮点型-–-gt-整型"><a href="#浮点型-–-gt-整型" class="headerlink" title="浮点型 –&gt; 整型"></a>浮点型 –&gt; 整型</h3><p>强制类型转换<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> a = <span class="number">1.9F</span>;</span><br><span class="line"><span class="keyword">int</span> b = (<span class="keyword">int</span>)a; <span class="comment">// b = 1 直接舍去小数部分</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="字符型-–-gt-整型"><a href="#字符型-–-gt-整型" class="headerlink" title="字符型 –&gt; 整型"></a>字符型 –&gt; 整型</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> x = <span class="string">'a'</span>;</span><br><span class="line"><span class="keyword">int</span> y = x; <span class="comment">// y = 97</span></span><br></pre></td></tr></table></figure>
+<h3 id="整型-–-gt-字符型"><a href="#整型-–-gt-字符型" class="headerlink" title="整型 –&gt; 字符型"></a>整型 –&gt; 字符型</h3><p>比较存储空间大小，强制类型转换<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">97</span>;</span><br><span class="line"><span class="keyword">char</span> y = <span class="keyword">char</span>(x); <span class="comment">// y = 'a'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">byte</span> x = <span class="number">97</span>;</span><br><span class="line"><span class="keyword">char</span> y = <span class="keyword">char</span>(x); <span class="comment">//虽然byte占8位，小于char的16位，但97在计算时为int型，所以也需要强制类型转换</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p>！！！不能与其他数据类型转换</p>
+<h2 id="引用类型之间转换"><a href="#引用类型之间转换" class="headerlink" title="引用类型之间转换"></a>引用类型之间转换</h2><h2 id="基本-引用间不能直接转换，需借用包装类"><a href="#基本-引用间不能直接转换，需借用包装类" class="headerlink" title="基本/引用间不能直接转换，需借用包装类"></a>基本/引用间不能直接转换，需借用包装类</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/04/11/java1/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -905,7 +1067,7 @@
       
         
           
-            <h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>四种循环类型：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(i &lt; <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">    i++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125; <span class="keyword">while</span>(i++ <span class="xml"><span class="tag">&lt; <span class="attr">10</span>);</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">for(var prop in object) &#123;</span></span><br><span class="line"><span class="xml">    //枚举自己和原型链上所有属性</span></span><br><span class="line"><span class="xml">    //循环体 </span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
+            <h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>四种循环类型：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(i &lt; <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">    i++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125; <span class="keyword">while</span>(i++ &lt; 10);</span><br><span class="line"></span><br><span class="line">for(var prop in object) &#123;</span><br><span class="line">    //枚举自己和原型链上所有属性</span><br><span class="line">    //循环体 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>四种循环类型，只有for-in循环比其他几种慢，因为要搜索实例或原型属性。<br>如果要遍历一个数量有限的已知属性列表，可以用其他循环类型代替：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> props = [<span class="string">'prop1'</span>, <span class="string">'prop2'</span>],</span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(i&lt;props.length) &#123;</span><br><span class="line">    process(object[props[i++]]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>基于 <strong>需求</strong>选择循环类型！！！性能差不多</p>
 <hr>
@@ -1780,183 +1942,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/02/graph/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/03/02/graph/" class="post-title-link" itemprop="url">js数据结构与算法--图--Graph</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-02 12:35:15" itemprop="dateCreated datePublished" datetime="2019-03-02T12:35:15+08:00">2019-03-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-03 12:44:48" itemprop="dateModified" datetime="2019-03-03T12:44:48+08:00">2019-03-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><p>图是网络结构的抽象模型，任何二元关系都可以用图来表示。</p>
-<p>G=(V, E)   V: 顶点 E: 边</p>
-<p>相邻顶点： 由一条边连接在一起的两个顶点<br>顶点的度： 相邻顶点的数量<br>路径： 顶点v1, v2, v3…vk的一个连续序列<br>简单路径：不包含重复顶点 </p>
-<p>无环图： 途中不存在环<br>联通图: 每两个顶点间都存在路径</p>
-<p>有向图 vs 无向图<br>加权图 vs 未加权图</p>
-<p>强连通：每两个顶点间在双向上都存在路径</p>
-<h1 id="图的表示"><a href="#图的表示" class="headerlink" title="图的表示"></a>图的表示</h1><h2 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h2><p>相邻为1，不相邻为0</p>
-<p>缺点：1.不是强连通的图，矩阵中会有很多0，浪费计算机存储空间</p>
-<pre><code>2. 图中顶点数量可能该表，二维数组不太灵活
-</code></pre><h2 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h2><p>每个顶点： 相邻顶点列表</p>
-<h2 id="关联矩阵"><a href="#关联矩阵" class="headerlink" title="关联矩阵"></a>关联矩阵</h2><p>行表示顶点，列表示边</p>
-<p>以下用邻接表来表示：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Graph</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> vertices = [];</span><br><span class="line">    adjList = <span class="keyword">new</span> Dictionary();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.addVertex = <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>&#123;</span><br><span class="line">        vertices.push(v);</span><br><span class="line">        adjList.set(v, []);<span class="comment">//items[v] = [];</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.addEdge = <span class="function"><span class="keyword">function</span>(<span class="params">v, w</span>) </span>&#123;</span><br><span class="line">        adjList.get(v).push(w); <span class="comment">//[].push(w)</span></span><br><span class="line">        adjList.get(w).push(v); <span class="comment">//[].push(v)</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出邻接表</span></span><br><span class="line">    <span class="keyword">this</span>.toString = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> s = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;vertices.length; i++) &#123;</span><br><span class="line">            s += vertices[i] + <span class="string">'-&gt;'</span>;</span><br><span class="line">            <span class="keyword">var</span> neighbors = adjList.get(vertices[i]);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;neighbors.length; j++) &#123;</span><br><span class="line">                s += neighbors[j] + <span class="string">' '</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            s += <span class="string">'\n'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化每个点都为白色</span></span><br><span class="line"><span class="keyword">var</span> initializeColor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> color = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;vertices.length; i++) &#123;</span><br><span class="line">        color[vertices[i]] = <span class="string">'white'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.bfs = <span class="function"><span class="keyword">function</span>(<span class="params">v, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> color = initializeColor();</span><br><span class="line">    <span class="keyword">var</span> queue = <span class="keyword">new</span> Queue();</span><br><span class="line">    queue.enqueue(v);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty) &#123;</span><br><span class="line">        <span class="keyword">var</span> u = queue.dequeue();</span><br><span class="line">        neighbors = adjList.get(u);</span><br><span class="line">        color[u] = <span class="string">'grey'</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;neighbors.length; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> w = neighbors[i];</span><br><span class="line">            <span class="keyword">if</span>(color[w] === <span class="string">'white'</span>) &#123;</span><br><span class="line">                color[w] = <span class="string">'grey'</span>;</span><br><span class="line">                queue.enqueue(w);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        color[u] = <span class="string">'black'</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// if(callback) &#123;</span></span><br><span class="line">        <span class="comment">//     callback(u);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> BFS会先访问所有与其距离为1的顶点-&gt;距离为2的顶点-&gt;…<br> 所以可以用来寻找root到其他各点的最短路径 未加权图</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.BFS = <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> color = initializeColor();</span><br><span class="line">    <span class="keyword">var</span> queue = <span class="keyword">new</span> Queue();</span><br><span class="line">    <span class="keyword">var</span> d = [];</span><br><span class="line">    <span class="keyword">var</span> pred = [];</span><br><span class="line">    queue.enqueue(v);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;vertices.length; i++) &#123;</span><br><span class="line">        d[vertices[i]] = <span class="number">0</span>;</span><br><span class="line">        pred[vertices[i]] = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">var</span> u = queue.dequeue();</span><br><span class="line">        <span class="keyword">var</span> neighbors = adjList.get(u);</span><br><span class="line">        color[u] = <span class="string">'grey'</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;neighbors.length; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> w = neighbors[i];</span><br><span class="line">            <span class="keyword">if</span>(color[w] === <span class="string">'white'</span>) &#123;</span><br><span class="line">                color[w] = <span class="string">'grey'</span>;</span><br><span class="line">                queue.enqueue(w);</span><br><span class="line">                d[w] = d[u] +<span class="number">1</span>;</span><br><span class="line">                pred[w] = u;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        color[u] = <span class="string">'black'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        distance: d,</span><br><span class="line">        predecessors: pred</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><h3 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h3><p> Dijkstra算法： 计算从单个源到所有其他源的最短路径的贪心算法。</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> graph = [[<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">            [<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">0</span>],</span><br><span class="line">            [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">0</span>],</span><br><span class="line">            [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>],</span><br><span class="line">            [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">0</span>,<span class="number">2</span>],</span><br><span class="line">            [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]]</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.dijkstra = <span class="function"><span class="keyword">function</span>(<span class="params">src</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dist = [], </span><br><span class="line">        visited = [],</span><br><span class="line">        length = <span class="keyword">this</span>.graph.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;length; i++) &#123;</span><br><span class="line">        dist[i] = INF;</span><br><span class="line">        visited[i] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dist[src] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;length<span class="number">-1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> u = minDistance(dist, visited);</span><br><span class="line">        visited[u] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> v = <span class="number">0</span>; v&lt;length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!visited[v] &amp;&amp; <span class="keyword">this</span>.graph[u][v] != <span class="number">0</span> &amp;&amp; dist[u] != INF &amp;&amp; dist[u]+<span class="keyword">this</span>.graph[u][v] &lt; dist[v]) &#123;</span><br><span class="line">                dist[v] = dist[u] + <span class="keyword">this</span>.graph[u][v];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Floyd-Warshall算法：计算图中所有最短路径的动态规划算法， 所有源到所有顶点。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.floydWarshall = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dist = [];</span><br><span class="line">    <span class="keyword">var</span> length = <span class="keyword">this</span>.graph.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;length; i++) &#123;</span><br><span class="line">        dist[i] = [];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;length; j++) &#123;</span><br><span class="line">            dist[i][j] = <span class="keyword">this</span>.graph[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> k=<span class="number">0</span>; k&lt;length; k++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(dist[i][k] + dist[k][j] &lt; dist[i][j]) &#123;</span><br><span class="line">                    dist[i][j] = dist[i][k] + dist[k][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="最小生成图"><a href="#最小生成图" class="headerlink" title="最小生成图"></a>最小生成图</h3><p>MST 最少的边/边的总权重最少，连通所有点。</p>
-<p>Prim算法：求解加权无向连通图的MST问题的贪心算法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.prim = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parent = [];</span><br><span class="line">        key = [];</span><br><span class="line">        visited = [];</span><br><span class="line">        length = <span class="keyword">this</span>.graph.length;</span><br><span class="line">        i;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;length; i++) &#123;</span><br><span class="line">        key[i] = INF;</span><br><span class="line">        visited[i] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    key[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    parent[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;length<span class="number">-1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> u = minKey(key, visited);</span><br><span class="line">        visted[u] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> v=<span class="number">0</span>; v&lt;length; v++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.graph[u][v] &amp;&amp; visited[v] == <span class="literal">false</span> &amp;&amp; <span class="keyword">this</span>.graph[u][v] &lt; key[v]) &#123;</span><br><span class="line">                parent[v] = u;</span><br><span class="line">                key[v] = <span class="keyword">this</span>.graph[u][v]; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Kruskal算法： 求解加权无向连通图的MST问题的贪心算法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.kruskal = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> length = <span class="keyword">this</span>.graph.length,</span><br><span class="line">    parent = [],</span><br><span class="line">    cost,</span><br><span class="line">    ne = <span class="number">0</span>,</span><br><span class="line">    a,b,u,v,i,j,min;</span><br><span class="line">    cost = initializeCost();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(ne &lt; length<span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; min=INF; i&lt;length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(cost[i][j] &lt; min) &#123;</span><br><span class="line">                    min = cost[i][j];</span><br><span class="line">                    u = i;</span><br><span class="line">                    v = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        u = find(u, parent);</span><br><span class="line">        v = find(v, parent);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(union(u, v, parent)) &#123;</span><br><span class="line">            ne++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cost[u][v] = cost[v][u] = INF;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span>(<span class="params">i, parent</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(parent[i]) &#123;</span><br><span class="line">        i = parent[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> union = <span class="function"><span class="keyword">function</span>(<span class="params">i, j, parent</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i != j) &#123;</span><br><span class="line">        parent[j] = i;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2003,7 +1988,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
