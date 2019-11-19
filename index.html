@@ -333,12 +333,24 @@
                 
               
 
-              <time title="创建时间：2019-11-18 17:50:17 / 修改时间：23:42:22" itemprop="dateCreated datePublished" datetime="2019-11-18T17:50:17+08:00">2019-11-18</time>
+              <time title="创建时间：2019-11-18 17:50:17" itemprop="dateCreated datePublished" datetime="2019-11-18T17:50:17+08:00">2019-11-18</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-19 11:03:54" itemprop="dateModified" datetime="2019-11-19T11:03:54+08:00">2019-11-19</time>
               
             
           </span>
@@ -375,7 +387,16 @@
         
           
             <h1 id="PureComponent"><a href="#PureComponent" class="headerlink" title="PureComponent"></a>PureComponent</h1><p>一个组件的state或props改变后 =&gt; render =&gt; 其后代都会重新render，即使没有state或props更新<br>PureComponent就是为了这种不必要的render，提升效率</p>
-<p>原理就是在shouldComponentUpdate中优化，</p>
+<p>原理就是在shouldComponentUpdate中优化，浅比较props和state是否改变，改变了重新render。</p>
+<h2 id="tips"><a href="#tips" class="headerlink" title="tips!!!"></a>tips!!!</h2><ol>
+<li><p>浅比较：只比较对象的第一层属性。 引用值比较其地址。<br>所以，setState时，用新的对象/数组覆盖，而不是直接改变原来的</p>
+</li>
+<li><p>函数组件，没有办法extends PureComponent; 用React.memo()</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Task</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> React.memo(Task);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>React.memo()本质上就是给函数组件Task套了一层extends PureComponent的类组件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ObjectEqual(<span class="keyword">this</span>.props, nextProps) &amp;&amp; ObjectEqual(<span class="keyword">this</span>.state, nextState)) &#123;</span><br><span class="line">        <span class="comment">// props和state都没有改变，不需要重新render</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ObjectEqual = <span class="function">(<span class="params">obj1, obj2</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> props <span class="keyword">in</span> obj1) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">Object</span>.is(obj1[prop], obj2[prop])) &#123;</span><br><span class="line">            <span class="comment">// 只要发现不相同的</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1677,7 +1698,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-18 23:42:18" itemprop="dateModified" datetime="2019-11-18T23:42:18+08:00">2019-11-18</time>
+                <time title="修改时间：2019-11-19 13:21:07" itemprop="dateModified" datetime="2019-11-19T13:21:07+08:00">2019-11-19</time>
               
             
           </span>
