@@ -288,6 +288,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/12/26/ES6_set_map/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/12/26/ES6_set_map/" class="post-title-link" itemprop="url">ES6_set_map</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-26 17:16:05 / 修改时间：18:04:46" itemprop="dateCreated datePublished" datetime="2019-12-26T17:16:05+08:00">2019-12-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ES6新的数据存储结构"><a href="#ES6新的数据存储结构" class="headerlink" title="ES6新的数据存储结构"></a>ES6新的数据存储结构</h1><h1 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h1><p>特点：只有val，且val唯一</p>
+<h2 id="init-amp-api"><a href="#init-amp-api" class="headerlink" title="init &amp; api"></a>init &amp; api</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 有迭代接口的都可以作为Set参数，eg: arr, string</span></span><br><span class="line"><span class="keyword">let</span> oS = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, [<span class="number">2</span>, <span class="number">3</span>]]);</span><br><span class="line"><span class="keyword">let</span> oS = <span class="keyword">new</span> <span class="built_in">Set</span>(<span class="string">'12233'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增</span></span><br><span class="line">oS.add(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 删</span></span><br><span class="line">oS.delete(<span class="string">'3'</span>);</span><br><span class="line"><span class="comment">// 清除</span></span><br><span class="line">oS.clear();</span><br><span class="line"><span class="comment">// 存在</span></span><br><span class="line">oS.has(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历</span></span><br><span class="line">oS.forEach(<span class="function"><span class="params">val</span> =&gt;</span> <span class="built_in">console</span>.log(val))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">of</span> oS) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(prop);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [] =&gt; Set</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> oS = <span class="keyword">new</span> <span class="built_in">Set</span>(arr);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set =&gt; []</span></span><br><span class="line"><span class="built_in">Array</span>.from(oS)</span><br><span class="line">[...oS]</span><br></pre></td></tr></table></figure>
+<h2 id="解决原生方法数组去重，值不能为引用值的问题"><a href="#解决原生方法数组去重，值不能为引用值的问题" class="headerlink" title="解决原生方法数组去重，值不能为引用值的问题"></a>解决原生方法数组去重，值不能为引用值的问题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">'cst'</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, obj, obj, &#123;<span class="attr">age</span>: <span class="number">18</span>&#125;];</span><br><span class="line"><span class="comment">// 利用对象prop唯一特性，去重后结果为[1, 2, &#123;age: 18&#125;]</span></span><br><span class="line"><span class="comment">// 因为所有&#123;&#125;作为prop时，都为'[object Object]'</span></span><br><span class="line"><span class="comment">// 因为所有[]作为prop时，都为'[object Array]'</span></span><br><span class="line"><span class="comment">// 所以后覆盖前</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> oS = <span class="keyword">new</span> <span class="built_in">Set</span>(arr);</span><br><span class="line"><span class="comment">// 去重 同一引用值的</span></span><br></pre></td></tr></table></figure>
+<h2 id="并集-amp-交集-amp-差集"><a href="#并集-amp-交集-amp-差集" class="headerlink" title="并集 &amp; 交集 &amp; 差集"></a>并集 &amp; 交集 &amp; 差集</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> oS1 = <span class="keyword">new</span> <span class="built_in">Set</span>(arr1);</span><br><span class="line"><span class="keyword">let</span> oS2 = <span class="keyword">new</span> <span class="built_in">Set</span>(arr2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并集</span></span><br><span class="line"><span class="keyword">let</span> union = <span class="keyword">new</span> <span class="built_in">Set</span>([...arr1, ...arr2]);</span><br><span class="line"><span class="comment">// 交集</span></span><br><span class="line"><span class="keyword">let</span> intersection = arr1.filter(<span class="function"><span class="params">ele</span> =&gt;</span> oS2.has(ele));</span><br><span class="line"><span class="comment">// 差集</span></span><br><span class="line"><span class="keyword">let</span> newArr1 = arr1.filter(<span class="function"><span class="params">ele</span> =&gt;</span> !oS2.has(ele));</span><br><span class="line"><span class="keyword">let</span> newArr2 =  arr2.filter(<span class="function"><span class="params">ele</span> =&gt;</span> !oS1.has(ele));</span><br><span class="line"><span class="keyword">let</span> differenceSet = [...newArr1, ...newArr2];</span><br></pre></td></tr></table></figure>
+<h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><p>特点：key-value键值对，key唯一<br>相较于object，key可以是任何值，不仅仅是字符串</p>
+<h2 id="init-amp-api-1"><a href="#init-amp-api-1" class="headerlink" title="init &amp; api"></a>init &amp; api</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> oM = <span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">'name'</span>, <span class="string">'cst'</span>], [&#123;&#125;, <span class="string">'---'</span>], [&#123;&#125;, <span class="string">'+++'</span>]]);</span><br><span class="line"><span class="built_in">console</span>.log(oM); <span class="comment">// Map(3) &#123;"name" =&gt; "cst", &#123;…&#125; =&gt; "---", &#123;…&#125; =&gt; "+++"&#125;</span></span><br><span class="line"></span><br><span class="line">oM.set(<span class="string">'name'</span>, <span class="string">'cst'</span>);</span><br><span class="line">oM.set(&#123;&#125;, <span class="string">'---'</span>);</span><br><span class="line">oM.set(&#123;&#125;, <span class="string">'+++'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(oM); <span class="comment">// Map(5) &#123;"name" =&gt; "cst", &#123;…&#125; =&gt; "---", &#123;…&#125; =&gt; "+++", &#123;…&#125; =&gt; "---", &#123;…&#125; =&gt; "+++"&#125;</span></span><br><span class="line"></span><br><span class="line">oM.get(<span class="string">'name'</span>);</span><br><span class="line">oM.get(&#123;&#125;); <span class="comment">// 引用值需要用变量存起来再用</span></span><br><span class="line"></span><br><span class="line">oM.delete(<span class="string">'name'</span>);</span><br><span class="line"></span><br><span class="line">oM.clear();</span><br><span class="line"></span><br><span class="line">oM.has(<span class="string">'name'</span>);</span><br><span class="line"></span><br><span class="line">oM.size();</span><br><span class="line"></span><br><span class="line">oM.keys();</span><br><span class="line"></span><br><span class="line">oM.entries();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历 值，键，oM本身</span></span><br><span class="line">oM.forEach(<span class="function">(<span class="params">ele, key, self</span>) =&gt;</span> <span class="built_in">console</span>.log(ele, key, self))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> val <span class="keyword">in</span> oM) &#123;</span><br><span class="line">    <span class="comment">// val[0] 键</span></span><br><span class="line">    <span class="comment">// val[1] 值</span></span><br><span class="line">    <span class="built_in">console</span>.log(val[<span class="number">0</span>], val[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Map数据存储原理：链表-hash算法-桶"><a href="#Map数据存储原理：链表-hash算法-桶" class="headerlink" title="Map数据存储原理：链表 + hash算法 + 桶"></a>Map数据存储原理：链表 + hash算法 + 桶</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/11/18/react-PureComponent/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1798,174 +1946,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/05/27/git/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/05/27/git/" class="post-title-link" itemprop="url">git</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-27 00:16:12" itemprop="dateCreated datePublished" datetime="2019-05-27T00:16:12+08:00">2019-05-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-06-04 01:08:25" itemprop="dateModified" datetime="2019-06-04T01:08:25+08:00">2019-06-04</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>上班也三周啦，上周结束了自己学习react-native的过程，开始接手项目。主要写了一个详情展示页面，没有什么交互，主要是结构和样式。哦还写了一个登录页的样式。</p>
-<p>这过程中，最令我头大的，就是git命令不熟悉，连上传代码都需要带我的同事帮忙，十分挫败，于是，躺完了两天，周日的晚上总结一番。</p>
-<p>git init</p>
-<p>git clone</p>
-<p>git branch newbranch 创建一个新的本地分支newbranch</p>
-<p>git checkout newbranch 切换到newbranch分支，这两步可以合并为git checkout -b newbranch</p>
-<p>在newbranch分支下，开发。开发完成后：</p>
-<p>git add .  更新到cache<br>git commit -m “first-commit” 提交代码 -m==message 附言？</p>
-<p>此时代码已提交到newbranch分支上，需要merge到远程分支xxx</p>
-<p>git checkout master<br>git merge newbranch 把newbranch上代码合并到本地master分支<br>git push origin xxx 推代码到远程分支xxx</p>
-<p>先切换到本地master， 合并newbranch上的代码到master，再将master push到远程的xxx分支</p>
-<p>大功告成！以上是首次开发拉代码，推代码的过程。再次开发的话，可以采用如下拉取代码</p>
-<p>git pull origin master 把远端origin的master分支拖动到本地当前分支</p>
-<p>git branch test-0.40.0<br>git checkout test-0.40.0<br>git add .<br>git commit -m ‘test-0.40.0’<br>git push origin test-0.40.0</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2012,7 +1992,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
