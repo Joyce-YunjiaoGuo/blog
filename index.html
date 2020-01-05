@@ -288,6 +288,144 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2020/01/05/recruit-2019-2020/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2020/01/05/recruit-2019-2020/" class="post-title-link" itemprop="url">recruit-2019/2020</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-05 23:48:11" itemprop="dateCreated datePublished" datetime="2020-01-05T23:48:11+08:00">2020-01-05</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2020/01/02/leetcode-7-9-14/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1739,186 +1877,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/10/26/vim的使用/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/10/26/vim的使用/" class="post-title-link" itemprop="url">vim的最基本使用</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-26 20:04:08 / 修改时间：20:35:29" itemprop="dateCreated datePublished" datetime="2019-10-26T20:04:08+08:00">2019-10-26</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近公司的代码库，突然要求强制加hook，然后发现每次commit代码的message必须以指定代码开头，不然就无法push到远程。<br>一直报错： commit id cannot be empty。<br>但是！有一次填写commit message时，我加了-，就报错！于是我只能修改这一次的message，再重新push。<br>以前从来没这样操作过，于是，我去百度了一下：</p>
-<p>git commit –amend 可以修改最近一次commit message</p>
-<p>然而！进入了我不太会的vi界面！于是就有了这篇文章！</p>
-<h3 id="三种模式"><a href="#三种模式" class="headerlink" title="三种模式"></a>三种模式</h3><p>基本上 vi/vim 共分为三种模式，分别是<br>命令模式（Command mode），<br>输入模式（Insert mode），<br>底线命令模式（Last line mode）。 </p>
-<p>这三种模式的作用分别是：</p>
-<h2 id="命令模式："><a href="#命令模式：" class="headerlink" title="命令模式："></a>命令模式：</h2><p><em>用户刚刚启动 vi/vim，便进入了命令模式。</em><br>此状态下敲击键盘动作会被Vim识别为命令，而非输入字符。</p>
-<p>以下是常用的几个命令：</p>
-<ul>
-<li>i 切换到<em>输入</em>模式，以输入字符。</li>
-<li>x <em>删除</em>当前光标所在处的字符。</li>
-<li>: 切换到<em>底线命令</em>模式，以在最底一行输入命令。</li>
-</ul>
-<p>命令模式只有一些最基本的命令，因此仍要依靠底线命令模式输入更多命令。</p>
-<h2 id="输入模式："><a href="#输入模式：" class="headerlink" title="输入模式："></a>输入模式：</h2><p>在命令模式下按下i就进入了输入模式。</p>
-<p>在输入模式中，可以使用以下按键：</p>
-<ul>
-<li>字符按键以及Shift组合，输入字符</li>
-<li>ENTER，回车键，换行</li>
-<li>BACK SPACE，退格键，删除光标前一个字符</li>
-<li>DEL，删除键，删除光标后一个字符</li>
-<li>方向键，在文本中移动光标</li>
-<li>HOME/END，移动光标到行首/行尾</li>
-<li>Page Up/Page Down，上/下翻页</li>
-<li>Insert，切换光标为输入/替换模式，光标将变成竖线/下划线</li>
-<li>ESC，退出输入模式，切换到命令模式</li>
-</ul>
-<h2 id="底线命令模式"><a href="#底线命令模式" class="headerlink" title="底线命令模式"></a>底线命令模式</h2><p>在命令模式下按下:（英文冒号）就进入了底线命令模式。<br>在输入模式下按下shift + : 就进入了底线命令模式。</p>
-<p>底线命令模式可以输入单个或多个字符的命令，可用的命令非常多。</p>
-<p>在底线命令模式中，基本的命令有（已经省略了冒号）：</p>
-<ul>
-<li>q 退出程序</li>
-<li>w 保存文件</li>
-<li>按ESC键可随时退出底线命令模式</li>
-</ul>
-<p>于是！想要修改最近一次commit message时，使用git commit –amend 进入vim后：</p>
-<p>命令模式–按i进入输入模式–&gt;<br>此时可以修改第一行的commit message–修改完成后，按shift+i进入底线命令模式–&gt;<br>此时光标来到最后一行–输入wq!–&gt;强制保存并退出</p>
-<p>最近一次的commit message就修改完成啦~</p>
-<p>这次操作只用了非常简单，为了以防万一，贴上vim比较全的操作用法。<br><a href="https://www.runoob.com/linux/linux-vim.html" target="_blank" rel="noopener">Linux vi/vim–菜鸟教程</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1965,7 +1923,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
