@@ -288,6 +288,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/11/09/react1/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/11/09/react1/" class="post-title-link" itemprop="url">react1</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-09 13:26:13" itemprop="dateCreated datePublished" datetime="2019-11-09T13:26:13+08:00">2019-11-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-11 22:09:01" itemprop="dateModified" datetime="2019-11-11T22:09:01+08:00">2019-11-11</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="REACT–UI复杂度的js库，其余交给插件"><a href="#REACT–UI复杂度的js库，其余交给插件" class="headerlink" title="REACT–UI复杂度的js库，其余交给插件"></a>REACT–UI复杂度的js库，其余交给插件</h1><ul>
+<li>轻量： 源码3000多行</li>
+<li>原生：原生js，不依赖其他库</li>
+<li>易扩展： 封装程度低</li>
+<li>不依赖运行环境： 跨平台？被轻松移植到浏览器，桌面应用，移动端</li>
+<li>渐进式</li>
+<li>组件化</li>
+<li>单向数据流</li>
+<li>JSX：js里写html</li>
+</ul>
+<h1 id="React-createElement"><a href="#React-createElement" class="headerlink" title="React.createElement()"></a>React.createElement()</h1><h1 id="ReactDOM-render"><a href="#ReactDOM-render" class="headerlink" title="ReactDOM.render()"></a>ReactDOM.render()</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入react和ReactDOM --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">crossorigin</span> <span class="attr">src</span>=<span class="string">'https://.../react.development.js'</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">crossorigin</span> <span class="attr">src</span>=<span class="string">'https://.../react-dom.development.js'</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 生成react对象</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// React.createElement(type, &#123;...props&#125;, children1, children2, ...);</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> span = React.createElement(<span class="string">"span"</span>, &#123;&#125;, <span class="string">"一个span元素"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> h1 =  React.createElement(<span class="string">"h1"</span>, &#123;</span></span><br><span class="line"><span class="javascript">        title: <span class="string">"react元素"</span>,</span></span><br><span class="line"><span class="javascript">    &#125;, <span class="string">"Hello"</span>, <span class="string">"world"</span>, span);</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 将react对象变为dom节点，插入已有dom中</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// ReactDOM.render(react对象, dom);</span></span></span><br><span class="line"><span class="javascript">    ReactDOM.render(h1, <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>))</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>用JSX写<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">'https://.../babel.min.js'</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 用babel编译，相当于react.createElement() --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> span = <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>一个span元素<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> h1 = <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">title</span>=<span class="string">"react元素"</span>&gt;</span></span></span></span><br><span class="line"><span class="undefined">          Hello</span></span><br><span class="line"><span class="undefined">          World</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">span</span>&gt;</span>一个span元素<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">h1</span>&gt;</span>;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="用脚手架开始一个新的react项目"><a href="#用脚手架开始一个新的react项目" class="headerlink" title="用脚手架开始一个新的react项目"></a>用脚手架开始一个新的react项目</h1><p>官方： create-react-app<br>第三方： next.js, umi.js</p>
+<ol>
+<li>npm install creat-react-app project-name</li>
+<li>cd project-name</li>
+<li>npm run start</li>
+</ol>
+<p>项目在localhost:3000上跑起来啦！ Ctrl + C 结束运行</p>
+<ul>
+<li>project-name<ul>
+<li>node_moduels</li>
+<li>public<ul>
+<li>index.html  </li>
+</ul>
+</li>
+<li>src<ul>
+<li>index.js</li>
+</ul>
+</li>
+<li>.gitigonre</li>
+<li>package.json</li>
+</ul>
+</li>
+</ul>
+<p>index.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>index.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span>, document.getElementById('root'));</span></span><br><span class="line"><span class="xml">// <span class="tag">&lt;<span class="name">App</span> /&gt;</span>你的自定义组件</span></span><br></pre></td></tr></table></figure></p>
+<p>package.json<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"dependencies": &#123;</span><br><span class="line">    "react": "^16.8.6",</span><br><span class="line">    "react-dom":  "^16.8.6",</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/10/26/vim的使用/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1554,7 +1746,7 @@
 <p>0 1<br>为啥？ 答了事件队列<br>然后讲了一下eventloop</p>
 <h1 id="8-promise-then-then-then-如果想在第二个then处中止，应该怎么做"><a href="#8-promise-then-then-then-如果想在第二个then处中止，应该怎么做" class="headerlink" title="8. promise.then().then().then(); 如果想在第二个then处中止，应该怎么做"></a>8. promise.then().then().then(); 如果想在第二个then处中止，应该怎么做</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line">.then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'[onFulfilled_1]'</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;); <span class="comment">// 返回“pending”状态的Promise对象</span></span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="comment">// 后续的函数不会被调用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'[onFulfilled_2]'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h1 id="9-css盒模型"><a href="#9-css盒模型" class="headerlink" title="9. css盒模型"></a>9. css盒模型</h1><h1 id="10-css水平垂直居中"><a href="#10-css水平垂直居中" class="headerlink" title="10. css水平垂直居中"></a>10. css水平垂直居中</h1><h1 id="11-想问canvas-我说不咋记得了-于是问的注意点？"><a href="#11-想问canvas-我说不咋记得了-于是问的注意点？" class="headerlink" title="11. 想问canvas 我说不咋记得了 于是问的注意点？"></a>11. 想问canvas 我说不咋记得了 于是问<video>的注意点？</video></h1><h1 id="12-写一个js深拷贝-对象遍历用for-in-数组用forEach"><a href="#12-写一个js深拷贝-对象遍历用for-in-数组用forEach" class="headerlink" title="12. 写一个js深拷贝 对象遍历用for in 数组用forEach"></a>12. 写一个js深拷贝 对象遍历用for in 数组用forEach</h1><h1 id="13-http缓存？强缓存-协商缓存？"><a href="#13-http缓存？强缓存-协商缓存？" class="headerlink" title="13. http缓存？强缓存/协商缓存？"></a>13. http缓存？强缓存/协商缓存？</h1><pre><code>![http缓存]](https://img-blog.csdnimg.cn/20190304103021382.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0p1dGFsX2xqdA==,size_16,color_FFFFFF,t_70)
-</code></pre><h1 id="14-cookie过期-max-age-如何提高cookie安全性"><a href="#14-cookie过期-max-age-如何提高cookie安全性" class="headerlink" title="14. cookie过期 max-age? 如何提高cookie安全性"></a>14. cookie过期 max-age? 如何提高cookie安全性</h1><h1 id="15-http-only"><a href="#15-http-only" class="headerlink" title="15. http-only"></a>15. http-only</h1><h1 id="16-link引入外部css，-加载需要两秒的事件，用户在这两秒间看到啥？"><a href="#16-link引入外部css，-加载需要两秒的事件，用户在这两秒间看到啥？" class="headerlink" title="16. link引入外部css， 加载需要两秒的事件，用户在这两秒间看到啥？"></a>16. link引入外部css， 加载需要两秒的事件，用户在这两秒间看到啥？</h1><h1 id="17"><a href="#17" class="headerlink" title="17."></a>17.</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.red &#123;</span><br><span class="line">    background: red;</span><br><span class="line">&#125;</span><br><span class="line">.blue &#123;</span><br><span class="line">    background: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">div &#123;</span><br><span class="line">    width: <span class="number">200</span>px;</span><br><span class="line">    height: <span class="number">200</span>px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"red blue"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"blue red"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</code></pre><h1 id="14-cookie过期-max-age-如何提高cookie安全性"><a href="#14-cookie过期-max-age-如何提高cookie安全性" class="headerlink" title="14. cookie过期 max-age? 如何提高cookie安全性"></a>14. cookie过期 max-age? 如何提高cookie安全性</h1><h1 id="15-http-only"><a href="#15-http-only" class="headerlink" title="15. http-only"></a>15. http-only</h1><h1 id="16-link引入外部css，-加载需要两秒的事件，用户在这两秒间看到啥？"><a href="#16-link引入外部css，-加载需要两秒的事件，用户在这两秒间看到啥？" class="headerlink" title="16. link引入外部css， 加载需要两秒的事件，用户在这两秒间看到啥？"></a>16. link引入外部css， 加载需要两秒的事件，用户在这两秒间看到啥？</h1><h1 id="17"><a href="#17" class="headerlink" title="17."></a>17.</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.red &#123;</span><br><span class="line">    background: red;</span><br><span class="line">&#125;</span><br><span class="line">.blue &#123;</span><br><span class="line">    background: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">div &#123;</span><br><span class="line">    width: <span class="number">200</span>px;</span><br><span class="line">    height: <span class="number">200</span>px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"red blue"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"blue red"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>权重相等时，样式会被覆盖，按css顺序，所以两个都是蓝色。</p>
 
           
@@ -1811,170 +2003,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/06/highperformance4/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/03/06/highperformance4/" class="post-title-link" itemprop="url">高性能javascript4--算法和流程控制（循环，条件，递归）</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-06 20:54:53 / 修改时间：23:48:35" itemprop="dateCreated datePublished" datetime="2019-03-06T20:54:53+08:00">2019-03-06</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>四种循环类型：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(i &lt; <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">    i++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125; <span class="keyword">while</span>(i++ &lt; 10);</span><br><span class="line"></span><br><span class="line">for(var prop in object) &#123;</span><br><span class="line">    //枚举自己和原型链上所有属性</span><br><span class="line">    //循环体 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>四种循环类型，只有for-in循环比其他几种慢，因为要搜索实例或原型属性。<br>如果要遍历一个数量有限的已知属性列表，可以用其他循环类型代替：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> props = [<span class="string">'prop1'</span>, <span class="string">'prop2'</span>],</span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(i&lt;props.length) &#123;</span><br><span class="line">    process(object[props[i++]]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>基于 <strong>需求</strong>选择循环类型！！！性能差不多</p>
-<hr>
-<p>提升循环整体性能</p>
-<h3 id="减少迭代的工作量"><a href="#减少迭代的工作量" class="headerlink" title="减少迭代的工作量"></a>减少迭代的工作量</h3><p>1.减少对象成员及数组项的查找次数， 把值存在局部变量中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> len = items.length;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;len; i++) &#123;</span><br><span class="line">    process(items[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.倒序循环，控制条件直接与true比较<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=items.length; i--; ) &#123;</span><br><span class="line">    process(items[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="减少迭代次数"><a href="#减少迭代次数" class="headerlink" title="减少迭代次数"></a>减少迭代次数</h3><p>达夫设备Duff’s Device: 使得一次迭代中实际上执行了多次迭代的操作。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iterations = <span class="built_in">Math</span>.floor(items.length / <span class="number">8</span>), <span class="comment">//第一次后，还要循环多少次</span></span><br><span class="line">    startAt = items.length % <span class="number">8</span>, <span class="comment">//第一次循环中调用多少次process()</span></span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span>(startAt) &#123; <span class="comment">//没有break则将在对应startAt值后一直往下执行</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">7</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">6</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">5</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: process(items[i++]);</span><br><span class="line">    &#125;</span><br><span class="line">    startAt = <span class="number">0</span>;</span><br><span class="line">&#125; <span class="keyword">while</span> (--iterations);</span><br></pre></td></tr></table></figure></p>
-<p>修改版–移除switch=&gt;更快<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = items.length % <span class="number">8</span>;</span><br><span class="line"><span class="keyword">while</span>(i) &#123;</span><br><span class="line">    process(items[i--]);</span><br><span class="line">&#125;</span><br><span class="line">i = <span class="built_in">Math</span>.floor(items.length / <span class="number">8</span>) * <span class="number">8</span> + i;</span><br><span class="line"><span class="comment">//这里感觉书上写错了，要*8啊，例如12次，这里要走一次while执行8个process，如果按书上，i=1，i--对应的就不对啊</span></span><br><span class="line"><span class="comment">//上面处理了items[1][2][3][4]，这里应该从最后处理到[5]</span></span><br><span class="line"><span class="keyword">while</span>(i) &#123;</span><br><span class="line">    process(items[i--]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>迭代次数越多，性能提升将越明显</p>
-<p><strong>基于函数的迭代</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value, index, array</span>) </span>&#123;</span><br><span class="line">    process(value);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>效率不如基于循环的迭代</p>
-<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><h3 id="if-else-vs-switch"><a href="#if-else-vs-switch" class="headerlink" title="if-else vs switch"></a>if-else vs switch</h3><p>if-else适用于判断两个离散值或几个不同的值域。<br>switch适用于判断多于两个离散值。</p>
-<h3 id="优化if-else"><a href="#优化if-else" class="headerlink" title="优化if-else"></a>优化if-else</h3><p>1.if-else中的条件语句应该按照从最大概率到最小概率排序，多数值直走一个语句。<br>2.嵌套的if-else语句–二分法<br>如果是1到10，则分为1-5，6-10，再往下分1-2，3-5；6-7，8-10。这样到达正确分支需要走的语句更少。</p>
-<h3 id="查找表"><a href="#查找表" class="headerlink" title="查找表"></a>查找表</h3><p>条件语句的数量很大的时候，查找表性能比if-else和switch好，可读性也更好。<br>单个键和单个值之间存在映射关系时，用查找表。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = [result0, result1, result2, result3, result4, result5, result6, result7, result8, result9, result10];</span><br><span class="line"><span class="keyword">return</span> results[value];</span><br></pre></td></tr></table></figure></p>
-<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>递归可以把复杂的算法变得很简单，但终止条件不明确/缺少终止条件 =&gt; 函数长时间运行； “调用栈大小限制”。</p>
-<p>调用栈溢出错误可以用try…catch捕获。异常类型因浏览器而不同。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    recurse();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ex) &#123;</span><br><span class="line">    alert(<span class="string">'too much recursion'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果不捕获它，会一直向上冒泡直到控制台。</p>
-<p>递归一般有两种模式：<br>1.直接递归模式–函数调用自身。<br>2.隐伏模式–两个函数相互调用，形成一个无限循环。</p>
-<p>导致栈溢出：<br>1.验证终止条件<br>2.太多层递归 =&gt; 改用迭代或memoization避免栈溢出</p>
-<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>任何递归能实现的算法，同样可以用迭代来实现。<br>eg: 归并排序<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//merge方法不变，只改写递归部分</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(items.length == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> items;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> work = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>, len=items.length; i&lt;len; i++) &#123;</span><br><span class="line">        work.push([item[i]]);</span><br><span class="line">    &#125;</span><br><span class="line">    work.push([]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> lim=len; lim&gt;<span class="number">1</span>; lim=(lim+<span class="number">1</span>)/<span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>, k=<span class="number">0</span>; k&lt;lim; j++, k+=<span class="number">2</span>) &#123;</span><br><span class="line">            work[j] = merge(work[k], work[k+<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        work[j] = [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> work[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="memoization"><a href="#memoization" class="headerlink" title="memoization"></a>memoization</h3><p>memoization缓存前一个计算结果供后续计算使用，避免了重复工作。<br>eg: 阶乘<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memfactorial</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!memfactorial.cache) &#123;</span><br><span class="line">        memfactorial.cache = &#123;</span><br><span class="line">            <span class="string">"0"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">"1"</span>: <span class="number">1</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//缓存中没有时</span></span><br><span class="line">    <span class="keyword">if</span>(!memfactorial.cache.hasOwnProperty(n)) &#123;</span><br><span class="line">        memfactorila.cache[n] = n * memfactorial(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> memfactorial.cache[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2021,7 +2049,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

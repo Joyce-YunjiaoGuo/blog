@@ -288,6 +288,170 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/06/highperformance4/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/03/06/highperformance4/" class="post-title-link" itemprop="url">高性能javascript4--算法和流程控制（循环，条件，递归）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-06 20:54:53 / 修改时间：23:48:35" itemprop="dateCreated datePublished" datetime="2019-03-06T20:54:53+08:00">2019-03-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>四种循环类型：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(i &lt; <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">    i++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125; <span class="keyword">while</span>(i++ <span class="xml"><span class="tag">&lt; <span class="attr">10</span>);</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">for(var prop in object) &#123;</span></span><br><span class="line"><span class="xml">    //枚举自己和原型链上所有属性</span></span><br><span class="line"><span class="xml">    //循环体 </span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>四种循环类型，只有for-in循环比其他几种慢，因为要搜索实例或原型属性。<br>如果要遍历一个数量有限的已知属性列表，可以用其他循环类型代替：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> props = [<span class="string">'prop1'</span>, <span class="string">'prop2'</span>],</span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(i&lt;props.length) &#123;</span><br><span class="line">    process(object[props[i++]]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>基于 <strong>需求</strong>选择循环类型！！！性能差不多</p>
+<hr>
+<p>提升循环整体性能</p>
+<h3 id="减少迭代的工作量"><a href="#减少迭代的工作量" class="headerlink" title="减少迭代的工作量"></a>减少迭代的工作量</h3><p>1.减少对象成员及数组项的查找次数， 把值存在局部变量中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> len = items.length;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;len; i++) &#123;</span><br><span class="line">    process(items[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.倒序循环，控制条件直接与true比较<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=items.length; i--; ) &#123;</span><br><span class="line">    process(items[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="减少迭代次数"><a href="#减少迭代次数" class="headerlink" title="减少迭代次数"></a>减少迭代次数</h3><p>达夫设备Duff’s Device: 使得一次迭代中实际上执行了多次迭代的操作。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iterations = <span class="built_in">Math</span>.floor(items.length / <span class="number">8</span>), <span class="comment">//第一次后，还要循环多少次</span></span><br><span class="line">    startAt = items.length % <span class="number">8</span>, <span class="comment">//第一次循环中调用多少次process()</span></span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span>(startAt) &#123; <span class="comment">//没有break则将在对应startAt值后一直往下执行</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">7</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">6</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">5</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>: process(items[i++]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: process(items[i++]);</span><br><span class="line">    &#125;</span><br><span class="line">    startAt = <span class="number">0</span>;</span><br><span class="line">&#125; <span class="keyword">while</span> (--iterations);</span><br></pre></td></tr></table></figure></p>
+<p>修改版–移除switch=&gt;更快<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = items.length % <span class="number">8</span>;</span><br><span class="line"><span class="keyword">while</span>(i) &#123;</span><br><span class="line">    process(items[i--]);</span><br><span class="line">&#125;</span><br><span class="line">i = <span class="built_in">Math</span>.floor(items.length / <span class="number">8</span>) * <span class="number">8</span> + i;</span><br><span class="line"><span class="comment">//这里感觉书上写错了，要*8啊，例如12次，这里要走一次while执行8个process，如果按书上，i=1，i--对应的就不对啊</span></span><br><span class="line"><span class="comment">//上面处理了items[1][2][3][4]，这里应该从最后处理到[5]</span></span><br><span class="line"><span class="keyword">while</span>(i) &#123;</span><br><span class="line">    process(items[i--]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>迭代次数越多，性能提升将越明显</p>
+<p><strong>基于函数的迭代</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value, index, array</span>) </span>&#123;</span><br><span class="line">    process(value);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>效率不如基于循环的迭代</p>
+<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><h3 id="if-else-vs-switch"><a href="#if-else-vs-switch" class="headerlink" title="if-else vs switch"></a>if-else vs switch</h3><p>if-else适用于判断两个离散值或几个不同的值域。<br>switch适用于判断多于两个离散值。</p>
+<h3 id="优化if-else"><a href="#优化if-else" class="headerlink" title="优化if-else"></a>优化if-else</h3><p>1.if-else中的条件语句应该按照从最大概率到最小概率排序，多数值直走一个语句。<br>2.嵌套的if-else语句–二分法<br>如果是1到10，则分为1-5，6-10，再往下分1-2，3-5；6-7，8-10。这样到达正确分支需要走的语句更少。</p>
+<h3 id="查找表"><a href="#查找表" class="headerlink" title="查找表"></a>查找表</h3><p>条件语句的数量很大的时候，查找表性能比if-else和switch好，可读性也更好。<br>单个键和单个值之间存在映射关系时，用查找表。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = [result0, result1, result2, result3, result4, result5, result6, result7, result8, result9, result10];</span><br><span class="line"><span class="keyword">return</span> results[value];</span><br></pre></td></tr></table></figure></p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>递归可以把复杂的算法变得很简单，但终止条件不明确/缺少终止条件 =&gt; 函数长时间运行； “调用栈大小限制”。</p>
+<p>调用栈溢出错误可以用try…catch捕获。异常类型因浏览器而不同。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    recurse();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ex) &#123;</span><br><span class="line">    alert(<span class="string">'too much recursion'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果不捕获它，会一直向上冒泡直到控制台。</p>
+<p>递归一般有两种模式：<br>1.直接递归模式–函数调用自身。<br>2.隐伏模式–两个函数相互调用，形成一个无限循环。</p>
+<p>导致栈溢出：<br>1.验证终止条件<br>2.太多层递归 =&gt; 改用迭代或memoization避免栈溢出</p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>任何递归能实现的算法，同样可以用迭代来实现。<br>eg: 归并排序<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//merge方法不变，只改写递归部分</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(items.length == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> items;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> work = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>, len=items.length; i&lt;len; i++) &#123;</span><br><span class="line">        work.push([item[i]]);</span><br><span class="line">    &#125;</span><br><span class="line">    work.push([]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> lim=len; lim&gt;<span class="number">1</span>; lim=(lim+<span class="number">1</span>)/<span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>, k=<span class="number">0</span>; k&lt;lim; j++, k+=<span class="number">2</span>) &#123;</span><br><span class="line">            work[j] = merge(work[k], work[k+<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        work[j] = [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> work[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="memoization"><a href="#memoization" class="headerlink" title="memoization"></a>memoization</h3><p>memoization缓存前一个计算结果供后续计算使用，避免了重复工作。<br>eg: 阶乘<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memfactorial</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!memfactorial.cache) &#123;</span><br><span class="line">        memfactorial.cache = &#123;</span><br><span class="line">            <span class="string">"0"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">"1"</span>: <span class="number">1</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//缓存中没有时</span></span><br><span class="line">    <span class="keyword">if</span>(!memfactorial.cache.hasOwnProperty(n)) &#123;</span><br><span class="line">        memfactorila.cache[n] = n * memfactorial(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> memfactorial.cache[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/06/highperformance3/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1736,161 +1900,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/02/28/set/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/02/28/set/" class="post-title-link" itemprop="url">js数据结构与算法--集合--Set</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-28 15:20:41" itemprop="dateCreated datePublished" datetime="2019-02-28T15:20:41+08:00">2019-02-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-01 00:00:53" itemprop="dateModified" datetime="2019-03-01T00:00:53+08:00">2019-03-01</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><p>集合是一组无序且唯一（不能重复）的项组成的</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Set</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> items = &#123;&#125;;</span><br><span class="line">        <span class="keyword">this</span>.has = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> items.hasOwnProperty(value) <span class="comment">//或value in items</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">this</span>.has(value)) &#123;</span><br><span class="line">                items[value] = value;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.remove = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.has(value)) &#123;</span><br><span class="line">                <span class="keyword">delete</span> items[value];</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.clear = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            items = &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">//Object.keys(obj)低版本浏览器不兼容</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Object</span>.keys(items).length;<span class="comment">//或遍历items里的每个自己的属性并累加</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.values = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> values = [];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, keys = <span class="built_in">Object</span>.keys(items); i &lt; keys.length; i++) &#123;<span class="comment">//或遍历items里的每个自己的属性，并push进values里</span></span><br><span class="line">                values.push(items[keys[i]]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> values;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//并集</span></span><br><span class="line">        <span class="keyword">this</span>.union = <span class="function"><span class="keyword">function</span> (<span class="params">otherSet</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> unionSet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> values = <span class="keyword">this</span>.values();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; values.length; i++) &#123;</span><br><span class="line">                unionSet.add(values[i]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> values = otherSet.values();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; value.length; i++) &#123;</span><br><span class="line">                unionSet.add(values[i]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> unionSet;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//交集</span></span><br><span class="line">        <span class="keyword">this</span>.intersection = <span class="function"><span class="keyword">function</span> (<span class="params">otherSet</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> intersectionSet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> values = <span class="keyword">this</span>.values();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; values.length; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (otherSet.has(values[i])) &#123;</span><br><span class="line">                    intersectionSet.add(values[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> intersectionSet;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//差集</span></span><br><span class="line">        <span class="keyword">this</span>.difference = <span class="function"><span class="keyword">function</span> (<span class="params">otherSet</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> differenceSet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> values = <span class="keyword">this</span>.values();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; values.length; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!otherSet.has(values[i])) &#123;</span><br><span class="line">                    differenceSet.add(values[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> differenceSet;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//子集</span></span><br><span class="line">        <span class="keyword">this</span>.subset = <span class="function"><span class="keyword">function</span> (<span class="params">otherSet</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.size() &gt; otherSet.size()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> values = <span class="keyword">this</span>.values;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; values.length; i++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!otherSet.has(values[i])) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1937,7 +1946,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
