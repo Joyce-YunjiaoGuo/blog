@@ -105,7 +105,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://joyce-yunjiaoguo.github.io/blog/2020/02/03/图解http/tcpip-transformation.jpg">
 <meta property="og:image" content="https://joyce-yunjiaoguo.github.io/blog/2020/02/03/图解http/relationships-http.jpg">
-<meta property="og:updated_time" content="2020-02-03T15:16:15.396Z">
+<meta property="og:updated_time" content="2020-02-03T15:27:04.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解http">
 <meta name="twitter:description" content="第一章 了解web及网络基础Web使用一种名为HTTP（HyperText Transfer Protocol，超文本传输协议[插图]）的协议作为规范，完成从客户端到服务器端等一系列运作流程。 TCP/IP协议族TCP/IP是在IP协议的通信过程中，使用到的协议族的统称。计算机与网络设备要相互通信，双方就必须基于相同的方法。不同的硬件、操作系统之间的通信，所有的这一切都需要一种规则。而我们就把这种">
@@ -385,7 +385,7 @@
                 
               
 
-              <time title="创建时间：2020-02-03 17:04:49 / 修改时间：23:16:15" itemprop="dateCreated datePublished" datetime="2020-02-03T17:04:49+08:00">2020-02-03</time>
+              <time title="创建时间：2020-02-03 17:04:49 / 修改时间：23:27:04" itemprop="dateCreated datePublished" datetime="2020-02-03T17:04:49+08:00">2020-02-03</time>
             
 
             
@@ -450,7 +450,8 @@
 <h2 id="IP-TCP-DNS"><a href="#IP-TCP-DNS" class="headerlink" title="IP TCP DNS"></a>IP TCP DNS</h2><p>IP协议的作用是把各种数据包传送给对方。而要保证确实传送到对方那里，则需要满足IP地址和MAC地址。<br>IP地址指明了节点被分配到的地址，MAC地址是指网卡所属的固定地址。IP地址可以和MAC地址进行配对。IP地址可变换，但MAC地址基本上不会更改。<br>在网络上，通信的双方在同一局域网（LAN）内的情况是很少的，通常是经过多台计算机和网络设备中转才能连接到对方。而在进行中转时，会利用下一站中转设备的MAC地址来搜索下一个中转目标。这时，会采用ARP协议–根据通信方的IP地址就可以反查出对应的MAC地址。</p>
 <p>TCP位于传输层，提供可靠的字节流服务。<br>字节流服务–为了方便传输，将大块数据分割成以报文段（segment）为单位的数据包进行管理。<br>可靠–为了准确无误地将数据送达目标处，TCP协议采用了三次握手（three-way handshaking）策略。(ACK&amp;SYN)<br>若在握手过程中某个阶段莫名中断，TCP协议会再次以相同的顺序发送相同的数据包。</p>
 <p>DNS提供域名到IP地址之间的解析服务，属于应用层。</p>
-<img src="/blog/2020/02/03/图解http/relationships-http.jpg" title="[各种协议与HTTP协议的关系]">
+<p><img src="relationships-http.jpg" alt="各种协议与HTTP协议的关系"></p>
+
       
     </div>
 
