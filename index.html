@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-05 22:17:21" itemprop="dateModified" datetime="2020-02-05T22:17:21+08:00">2020-02-05</time>
+                <time title="修改时间：2020-02-05 23:45:40" itemprop="dateModified" datetime="2020-02-05T23:45:40+08:00">2020-02-05</time>
               
             
           </span>
@@ -480,6 +480,17 @@
 <h2 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h2><p>HTTP协议的初始版本中，每进行一次HTTP通信就要断开一次TCP连接。<br>HTTP/1.1和一部分的HTTP/1.0想出了持久连接（HTTP keep-alive）的方法 – 只要任意一端没有明确提出断开连接，则保持TCP连接状态。<br>持久连接使得多数请求以管线化（pipelining）方式发送成为可能，同时并行发送多个请求。</p>
 <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie会根据从服务器端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值后发送出去。服务器端发现客户端发送过来的Cookie后，会去检查究竟是从哪一个客户端发来的连接请求，然后对比服务器上的记录，最后得到之前的状态信息。</p>
 <p><img src="http-cookie.jpg" alt="Cookie"></p>
+<h1 id="第三章-HTTP报文"><a href="#第三章-HTTP报文" class="headerlink" title="第三章 HTTP报文"></a>第三章 HTTP报文</h1><p><img src="http-baowen.jpg" alt="报文格式"></p>
+<p>请求报文： 请求行 + 请求头部 + 空行 + 请求体<br>响应报文： 响应行 + 响应头部 + 空行 + 响应体</p>
+<h2 id="内容编码（报文主体-–-gt-实体主体）"><a href="#内容编码（报文主体-–-gt-实体主体）" class="headerlink" title="内容编码（报文主体 –&gt; 实体主体）"></a>内容编码（报文主体 –&gt; 实体主体）</h2><p>通常，报文主体等于实体主体。只有当传输中进行编码操作时，实体主体的内容发生变化，才导致它和报文主体产生差异。<br>内容编码指明应用在实体内容上的编码格式，并保持实体信息原样压缩。内容编码后的实体由客户端接收并负责解码。</p>
+<p>分块传输编码：会将实体主体分成多个部分（块）。每一块都会用十六进制来标记块的大小，而实体主体的最后一块会使用“0(CR+LF)”来标记。<br>在传输大容量数据时，通过把数据分割成多块，能够让浏览器逐步显示页面。</p>
+<h2 id="范围请求"><a href="#范围请求" class="headerlink" title="范围请求"></a>范围请求</h2><p>针对范围请求，响应会返回状态码为206 Partial Content的响应报文。如果服务器端无法响应范围请求，则会返回状态码200 OK和完整的实体内容。<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/range-request.jpg" alt="范围请求"></p>
+<h2 id="内容协商"><a href="#内容协商" class="headerlink" title="内容协商"></a>内容协商</h2><p>内容协商机制是指客户端和服务器端就响应的资源内容进行交涉，然后提供给客户端最为适合的资源。内容协商会以响应资源的语言、字符集、编码方式等作为判断的基准。（●Accept●Accept-Charset●Accept-Encoding●Accept-Language●Content-Language）</p>
+<h1 id="第四章-HTTP状态码"><a href="#第四章-HTTP状态码" class="headerlink" title="第四章 HTTP状态码"></a>第四章 HTTP状态码</h1><p><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/status-code.jpg" alt="HTTP状态码"></p>
+<h2 id="2XX成功"><a href="#2XX成功" class="headerlink" title="2XX成功"></a>2XX成功</h2><p>200 OK<br>204 No Content 该状态码代表服务器接收的请求已成功处理，但在返回的响应报文中不含实体的主体部分，那么浏览器显示的页面不发生更新。<br>206 Partial Content 该状态码表示客户端进行了范围请求，而服务器成功执行了这部分的GET请求。</p>
+<h2 id="3XX重定向"><a href="#3XX重定向" class="headerlink" title="3XX重定向"></a>3XX重定向</h2><p>301 Moved Permanently 永久性重定向。该状态码表示请求的资源已被分配了新的URI，以后应使用资源现在所指的URI，书签更新。<br>302 Found             临时性重定向。该状态码表示请求的资源已被分配了新的URI，希望用户（本次）能使用新的URI访问，书签不更新。<br>303 See Other         该状态码表示由于请求对应的资源存在着另一个URI，应使用GET方法定向获取请求的资源。<br>                      当301、302、303响应状态码返回时，几乎所有的浏览器都会把POST改成GET，并删除请求报文内的主体，之后请求会自动再次发送。301、302标准是禁止将POST方法改变成GET方法的，但实际使用时大家都会这么做<br>304 Not Modified      服务器端资源未改变，可直接使用客户端未过期的缓存<br>307 Temporary Redirect临时性重定向。307会遵照浏览器标准，不会从POST变成GET</p>
+<h2 id="4XX客户端错误"><a href="#4XX客户端错误" class="headerlink" title="4XX客户端错误"></a>4XX客户端错误</h2><p>400 Bad Request       该状态码表示请求报文中存在语法错误<br>401 Unauthorized      该状态码表示发送的请求需要有通过HTTP认证（BASIC认证、DIGEST认证）的认证信息。<br>                      当浏览器初次接收到401响应，会弹出认证用的对话窗口。若之前已进行过1次请求，则表示用户认证失败。<br>403 Forbidden         该状态码表明对请求资源的访问被服务器拒绝了（获得文件系统的访问授权，访问权限出现某些问题）。<br>404 Not Found         该状态码表明服务器上无法找到请求的资源。</p>
+<h2 id="5XX服务器错误"><a href="#5XX服务器错误" class="headerlink" title="5XX服务器错误"></a>5XX服务器错误</h2><p>500 Internal Server Error  该状态码表明服务器端在执行请求时发生了错误。<br>503 Service Unavailable    该状态码表明服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。如果事先得知解除以上状况需要的时间，最好写                              入Retry-After首部字段再返回给客户端。</p>
 
           
         
