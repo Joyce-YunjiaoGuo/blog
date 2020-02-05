@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-04 23:52:30" itemprop="dateModified" datetime="2020-02-04T23:52:30+08:00">2020-02-04</time>
+                <time title="修改时间：2020-02-05 22:05:07" itemprop="dateModified" datetime="2020-02-05T22:05:07+08:00">2020-02-05</time>
               
             
           </span>
@@ -469,7 +469,7 @@
 <p><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/uri-example.jpg" alt="绝对URI格式"></p>
 <p>登录信息（认证）可选。<br>服务器地址必须，可以是类似hackr.jp这种DNS可解析的名称，或是192.168.1.1这类IPv4地址名，还可以是[0:0:0:0:0:0:0:1]这样用方括号括起来的IPv6地址名。<br>服务器端口号可选。<br>带层次的文件路径、查询字符串、片段标识符可选。</p>
 <h1 id="第二章-最简单的HTTP协议"><a href="#第二章-最简单的HTTP协议" class="headerlink" title="第二章 最简单的HTTP协议"></a>第二章 最简单的HTTP协议</h1><h2 id="用于客户端和服务器端之间的通信"><a href="#用于客户端和服务器端之间的通信" class="headerlink" title="用于客户端和服务器端之间的通信"></a>用于客户端和服务器端之间的通信</h2><p>请求访问文本或图像等资源的一端称为客户端，而提供资源响应的一端称为服务器端。</p>
-<h2 id="请求-amp-响应"><a href="#请求-amp-响应" class="headerlink" title="请求 &amp; 响应"></a>请求 &amp; 响应</h2><p><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/request.jpg" alt="请求报文"><br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/response.jpg" alt="响应报文"></p>
+<h2 id="请求-amp-响应"><a href="#请求-amp-响应" class="headerlink" title="请求 &amp; 响应"></a>请求 &amp; 响应</h2><p><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/request.jpg" alt="请求报文"><br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods-response.jpg" alt="响应报文"></p>
 <p>头部 与 主体 间会以一空行隔开。</p>
 <h2 id="不保存状态"><a href="#不保存状态" class="headerlink" title="不保存状态"></a>不保存状态</h2><p>HTTP协议自身不对请求和响应之间的通信状态进行保存。使用HTTP协议，每当有新的请求发送时，就会有对应的新响应产生。<br>+：减少服务器cpu和内存消耗；更快地处理大量事务，确保协议的可伸缩性；<br>-：eg:保存用户登录状态</p>
 <p>http1.1引入cookie管理状态。</p>
