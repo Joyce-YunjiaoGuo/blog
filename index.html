@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-05 22:05:07" itemprop="dateModified" datetime="2020-02-05T22:05:07+08:00">2020-02-05</time>
+                <time title="修改时间：2020-02-05 22:08:57" itemprop="dateModified" datetime="2020-02-05T22:08:57+08:00">2020-02-05</time>
               
             
           </span>
@@ -469,13 +469,13 @@
 <p><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/uri-example.jpg" alt="绝对URI格式"></p>
 <p>登录信息（认证）可选。<br>服务器地址必须，可以是类似hackr.jp这种DNS可解析的名称，或是192.168.1.1这类IPv4地址名，还可以是[0:0:0:0:0:0:0:1]这样用方括号括起来的IPv6地址名。<br>服务器端口号可选。<br>带层次的文件路径、查询字符串、片段标识符可选。</p>
 <h1 id="第二章-最简单的HTTP协议"><a href="#第二章-最简单的HTTP协议" class="headerlink" title="第二章 最简单的HTTP协议"></a>第二章 最简单的HTTP协议</h1><h2 id="用于客户端和服务器端之间的通信"><a href="#用于客户端和服务器端之间的通信" class="headerlink" title="用于客户端和服务器端之间的通信"></a>用于客户端和服务器端之间的通信</h2><p>请求访问文本或图像等资源的一端称为客户端，而提供资源响应的一端称为服务器端。</p>
-<h2 id="请求-amp-响应"><a href="#请求-amp-响应" class="headerlink" title="请求 &amp; 响应"></a>请求 &amp; 响应</h2><p><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/request.jpg" alt="请求报文"><br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods-response.jpg" alt="响应报文"></p>
+<h2 id="请求-amp-响应"><a href="#请求-amp-响应" class="headerlink" title="请求 &amp; 响应"></a>请求 &amp; 响应</h2><p><img src="http-request.jpg" alt="请求报文"><br><img src="http-response.jpg" alt="响应报文"></p>
 <p>头部 与 主体 间会以一空行隔开。</p>
 <h2 id="不保存状态"><a href="#不保存状态" class="headerlink" title="不保存状态"></a>不保存状态</h2><p>HTTP协议自身不对请求和响应之间的通信状态进行保存。使用HTTP协议，每当有新的请求发送时，就会有对应的新响应产生。<br>+：减少服务器cpu和内存消耗；更快地处理大量事务，确保协议的可伸缩性；<br>-：eg:保存用户登录状态</p>
 <p>http1.1引入cookie管理状态。</p>
 <h2 id="根据请求中uri定位资源"><a href="#根据请求中uri定位资源" class="headerlink" title="根据请求中uri定位资源"></a>根据请求中uri定位资源</h2><p><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/uri-getposition-resource.jpg" alt="请求uri"></p>
 <p>除此之外，如果不是访问特定资源而是对服务器本身发起请求，可以用一个<em>来代替请求URI。<br>如：查询HTTP服务器端支持的HTTP方法种类<br>OPTIONS </em> HTTP/1.1</p>
-<h2 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h2><p>GET：获取资源<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/get.jpg" alt="get"><br>POST：传输实体主体<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/post.jpg" alt="post"><br>PUT：传输文件，在请求报文的主体中包含文件内容，然后保存到请求URI指定的位置。<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/put.jpg" alt="put"><br>HEAD：获得报文首部，用于确认URI的有效性及资源更新的日期时间等。<br>DELETE：删除文件，按请求URI删除指定的资源。<br>OPTIONS：询问支持的方法<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/trace.jpg" alt="trace"><br>TRACE：追踪路径，让Web服务器端将之前的请求通信环回给客户端。<br>发送请求时，在Max-Forwards首部字段中填入数值，每经过一个服务器端就将该数字减1，当数值刚好减到0时，就停止继续传输，最后接收到请求的服务器端则返回状态码200 OK的响应。容易引发XST（Cross-Site Tracing，跨站追踪）攻击。<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/trace.jpg" alt="trace"><br>CONNECT方法要求在与代理服务器通信时建立隧道，实现用隧道协议进行TCP通信。主要使用SSL（安全套接层）和TLS（传输层安全）协议把通信内容加密后经网络隧道传输。<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/connect.jpg" alt="connect"></p>
+<h2 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h2><p>GET：获取资源<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods-get.jpg" alt="get"><br>POST：传输实体主体<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods-post.jpg" alt="post"><br>PUT：传输文件，在请求报文的主体中包含文件内容，然后保存到请求URI指定的位置。<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods-put.jpg" alt="put"><br>HEAD：获得报文首部，用于确认URI的有效性及资源更新的日期时间等。<br>DELETE：删除文件，按请求URI删除指定的资源。<br>OPTIONS：询问支持的方法<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods-options.jpg" alt="trace"><br>TRACE：追踪路径，让Web服务器端将之前的请求通信环回给客户端。<br>发送请求时，在Max-Forwards首部字段中填入数值，每经过一个服务器端就将该数字减1，当数值刚好减到0时，就停止继续传输，最后接收到请求的服务器端则返回状态码200 OK的响应。容易引发XST（Cross-Site Tracing，跨站追踪）攻击。<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods-trace.jpg" alt="trace"><br>CONNECT方法要求在与代理服务器通信时建立隧道，实现用隧道协议进行TCP通信。主要使用SSL（安全套接层）和TLS（传输层安全）协议把通信内容加密后经网络隧道传输。<br><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods-connect.jpg" alt="connect"></p>
 <p><img src="//joyce-yunjiaoguo.github.io/blog/2020/02/03/http/methods.jpg" alt="methods"></p>
 <h2 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h2><p>HTTP协议的初始版本中，每进行一次HTTP通信就要断开一次TCP连接。<br>HTTP/1.1和一部分的HTTP/1.0想出了持久连接（HTTP keep-alive）的方法 – 只要任意一端没有明确提出断开连接，则保持TCP连接状态。<br>持久连接使得多数请求以管线化（pipelining）方式发送成为可能，同时并行发送多个请求。</p>
 <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie会根据从服务器端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值后发送出去。服务器端发现客户端发送过来的Cookie后，会去检查究竟是从哪一个客户端发来的连接请求，然后对比服务器上的记录，最后得到之前的状态信息。</p>
