@@ -339,6 +339,347 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/11/17/react-context上下文/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/11/17/react-context上下文/" class="post-title-link" itemprop="url">react-context上下文</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-17 19:45:02 / 修改时间：21:14:05" itemprop="dateCreated datePublished" datetime="2019-11-17T19:45:02+08:00">2019-11-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Context上下文"><a href="#Context上下文" class="headerlink" title="Context上下文"></a>Context上下文</h1><p>为了解决跨层级共享数据，否则需要层层用props传递，太麻烦！</p>
+<p>组件App创建了一个context，则其后代都可以共享这个context数据。<br>但对于其后代而言，数据来源不仅仅是state和props，还有可能是context！有隐患！</p>
+<h2 id="旧版context（v16-0-0之前版本）"><a href="#旧版context（v16-0-0之前版本）" class="headerlink" title="旧版context（v16.0.0之前版本）"></a>旧版context（v16.0.0之前版本）</h2><ul>
+<li><p>如何创建上下文：</p>
+<ol>
+<li>必须写childContextTypes类型约束</li>
+<li>getChildContext(), 在render之后执行，返回的对象即为context，其必须满足类型约束<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> childContextTypes = &#123;</span><br><span class="line">    a: PropTypes.number,</span><br><span class="line">    b: PropTypes.string,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getChildContext() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        a: <span class="number">123</span>, </span><br><span class="line">        b: <span class="string">'123'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>后代如何获取上下文</p>
+<ol>
+<li>必须写contextTypes类型约束</li>
+<li>this.context.xxx或context.xxx取值</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类组件</span></span><br><span class="line"><span class="keyword">static</span> contextTypes = &#123;</span><br><span class="line">    a: PropTypes.number,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">constructor</span>(props, context) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">const</span> a = context.a;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者，省略不写construtor，直接取值</span></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">this</span>.context.a;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数组件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">props, context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h1&gt;&#123;context.a&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">A.contextTypes = &#123;</span><br><span class="line">    a: PropTypes.number,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="改变context值"><a href="#改变context值" class="headerlink" title="改变context值"></a>改变context值</h3><ul>
+<li><p>组件想要改变自己的context， 必须通过setState。<br>把需要改变的context值放入state，setState改变后，组件会重新render，执行getChildContext，context中值随之更新。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">state = &#123;</span><br><span class="line">    a: <span class="number">123</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getChildContext() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        a: <span class="keyword">this</span>.state.a,</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后代想要改变context，需要通过context中函数调用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// context的所有者</span></span><br><span class="line">getChildContext() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        a: <span class="keyword">this</span>.state.a,</span><br><span class="line">        onChangeA = <span class="function">(<span class="params">newA</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">                a: newA,</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后代中调用onChangeA方法，即可改变context中a的值</span></span><br><span class="line"><span class="keyword">this</span>.context.onChangeA(<span class="number">321</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="有多个父级context情况下，子组件取离自己最近父级的context"><a href="#有多个父级context情况下，子组件取离自己最近父级的context" class="headerlink" title="有多个父级context情况下，子组件取离自己最近父级的context"></a>有多个父级context情况下，子组件取离自己最近父级的context</h3><p><img src="http://chuantu.xyz/t6/703/1573995368x1031866013.jpg" alt="contextJPG"></p>
+<p>ChildA中，this.context.a取123<br>ChildB中，this.context.a取789</p>
+<h2 id="新版（v16-0-0以后版本）"><a href="#新版（v16-0-0以后版本）" class="headerlink" title="新版（v16.0.0以后版本）"></a>新版（v16.0.0以后版本）</h2><ul>
+<li><p>如何创建上下文</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 产生一个对象ctx， 有两个属性： Provider和Consumer</span></span><br><span class="line"><span class="comment">// Provider: 生产一个上下文</span></span><br><span class="line"><span class="comment">// Consumer： 获取上下文</span></span><br><span class="line"><span class="keyword">var</span> ctx = React.createContext(&#123;</span><br><span class="line">    a: <span class="number">0</span>,</span><br><span class="line">    b: <span class="string">'abc'</span>,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">state = &#123;</span><br><span class="line">    a: <span class="number">0</span>,</span><br><span class="line">    b: <span class="string">'abc'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">const</span> Provider = ctx.Provider;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Provider value=&#123;<span class="keyword">this</span>.state&#125;&gt;</span><br><span class="line">            &lt;div&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        &lt;<span class="regexp">/Provider&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后代如何获取上下文</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数组件 &amp; 类组件</span></span><br><span class="line"><span class="keyword">const</span> Consumer = ctx.Consumer;</span><br><span class="line">&lt;Consumer&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        (value) =&gt; <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;value.a&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/Consumer&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 类组件</span></span><br><span class="line"><span class="regexp">static contextType = ctx;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">this.context.a</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>ctx与生成组件最好一一对应，需要新的上下文时，可以重新createContext生成一个！</p>
+<h3 id="强制更新"><a href="#强制更新" class="headerlink" title="强制更新"></a>强制更新</h3><p>即使setState({})空对象，Provider的value值更新为一个新的对象，地址改变，其后代必须重新render，无论shouldComponetUpdate返回true or false</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/11/11/react-生命周期/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/11/11/react-生命周期/" class="post-title-link" itemprop="url">react-生命周期</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-11 22:34:05" itemprop="dateCreated datePublished" datetime="2019-11-11T22:34:05+08:00">2019-11-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-17 23:00:33" itemprop="dateModified" datetime="2019-12-17T23:00:33+08:00">2019-12-17</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><p>组件从诞生到销毁的过程。</p>
+<p>提供了一系列钩子， 让开发者注入代码</p>
+<p>仅存在于类组件中，函数组件每次调用都重新运行该函数，旧的被销毁</p>
+<h2 id="旧版-v16-0-0之前版本"><a href="#旧版-v16-0-0之前版本" class="headerlink" title="旧版 v16.0.0之前版本"></a>旧版 v16.0.0之前版本</h2><p><img src="https://upload-images.jianshu.io/upload_images/4171647-6e32ddbc9980cc3a.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" alt="oldLifeCycle"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">  <span class="keyword">super</span>(props);</span><br><span class="line">  <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      n: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 同一个组件对象只会创建一次</span></span><br><span class="line">  <span class="comment">// 不能setState()，会warning</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"constructor"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">componentWillMount() &#123;</span><br><span class="line">  <span class="comment">// 只执行一次</span></span><br><span class="line">  <span class="comment">// 可以使用setState， 但不允许使用：因为特殊情况下，会被调用多次</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"componentWillMount"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> render() &#123;</span><br><span class="line">  <span class="comment">// 渲染虚拟dom树到真实dom树中</span></span><br><span class="line">  <span class="comment">// 重新渲染，就会运行</span></span><br><span class="line">  <span class="comment">// 不能setState()，会warning: 溢出，因为无限渲染</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"render"</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;xxx&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  ); </span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">componentDidMount() &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 只运行一次</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 可以setState()</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 网络请求，计时器等操作</span></span><br><span class="line"><span class="regexp">    console.log("componentDidMount");</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">componenetWillRecieveProps(nextProps) &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ props变化时</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">shouldComponentUpdate(nextProps, nextState) &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ state变化 OR props变化，执行过componentsWillRecieveProps</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 是否应该重新渲染</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ return ture /</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">componentWillUpdate() &#123;</span><br><span class="line">    <span class="comment">// shouldComponentUpdate返回true时， 执行</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">componentDidUpdate(preProps, preState) &#123;</span><br><span class="line">    <span class="comment">// 拿到更新前的属性和状态</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="新版-v16-0-0之后版本"><a href="#新版-v16-0-0之后版本" class="headerlink" title="新版 v16.0.0之后版本"></a>新版 v16.0.0之后版本</h2><p><img src="https://upload-images.jianshu.io/upload_images/4171647-0fd5d53968a77eb5.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" alt="newLifeCycle"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">getDerivedStateFromProps(props, state) &#123;</span><br><span class="line">    <span class="comment">// 静态方法，this不指向实例对象，无法调用this.setState()</span></span><br><span class="line">    <span class="comment">// 为了保证数据来源唯一，不是props就是state</span></span><br><span class="line">    <span class="comment">// 返回值将覆盖state</span></span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getSnapshotBeforeUpdate(prevProps, prevState) &#123;</span><br><span class="line">    <span class="comment">// 真实dom已经构建，但还未渲染到页面中， 通常用于实现渲染前附加的dom操作</span></span><br><span class="line">    <span class="comment">// 必须和componentDidUpdate一起使用</span></span><br><span class="line">    <span class="comment">// 返回值会作为componentDidUpdate的第三个参数</span></span><br><span class="line">    <span class="keyword">return</span> snap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">componentDidUpdate(prevProps, prevState, snap) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/11/11/react-深入认识setState/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1691,358 +2032,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/04/11/java1/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/04/11/java1/" class="post-title-link" itemprop="url">java1</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-11 20:38:00 / 修改时间：21:58:45" itemprop="dateCreated datePublished" datetime="2019-04-11T20:38:00+08:00">2019-04-11</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>上班之前的空闲时间，学学Java基础吧~</p>
-<h1 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h1><p>算是计算机素养咯~</p>
-<p>Java的创始人之一是James Gosling，一个加拿大的很聪明的从小爱捣鼓电器的小男孩？ 在加入SUN(Stanford University Network)公司后，成为GREEN计划的领导人，由于C在开发中的众多弊端，他决定创造一种新语言。<br>一开始，命名为Oak(因为看见了窗前的一棵橡树？)，但是已经被注册了，只能换名。1995年时，正式命名为Java，希望这种语言像爪哇的猫屎咖啡一样盛行于全球，这么看来很成功呀？（想起了UCI的小卖部java city）<br>1996 – JDK<br>1997 – J2SE,J2EE<br>2004 – Java 5<br>2006 – Java 6<br>2009 – 被Oracle公司收购</p>
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
-<li>跨平台性（不同厂商的芯片–&gt; 不同版本的操作系统）</li>
-<li>面向对象</li>
-<li>简单性 取消了c++的多继承/指针等</li>
-<li>健壮性 eg:垃圾回收机制/异常处理机制</li>
-<li>多线程性 并行-&gt;提高性能</li>
-<li>大数据开发领域应用</li>
-</ol>
-<h1 id="java为什么能跨平台呢？"><a href="#java为什么能跨平台呢？" class="headerlink" title="java为什么能跨平台呢？"></a>java为什么能跨平台呢？</h1><p>因为虚拟机JVM可以在内存上开辟一块空间，将 源文件（.java）编译成 字节码文件（.class），使其适用于不同的操作系统。 </p>
-<hr>
-<p>想要运行java程序，需要安装java运行环境jre(包含jvm)</p>
-<h2 id="想要做java开发，-需要安装java开发工具jdk-包含jre"><a href="#想要做java开发，-需要安装java开发工具jdk-包含jre" class="headerlink" title="想要做java开发， 需要安装java开发工具jdk(包含jre)"></a>想要做java开发， 需要安装java开发工具jdk(包含jre)</h2><h1 id="jdk中都有啥呢？"><a href="#jdk中都有啥呢？" class="headerlink" title="jdk中都有啥呢？"></a>jdk中都有啥呢？</h1><p>– bin(工具) – java.exe(编译工具)<br>            – javac.exe(执行工具)<br>– include(其他语言写好的程序)<br>– jre(运行环境)<br>– lib(别人写好的所有java类)<br>– src.zip(java源代码)</p>
-<p>安装完jdk –&gt;<br>配制环境变量path（使工具在每个文件夹中都可以使用）–&gt;<br>cmd中进入java文件所在路径，javas test.java “编译” –&gt;<br>cmd中进入class文件所在路径，javac Demo(类名) “运行”</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;<span class="comment">//类名首字母大写 FirstDemo</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">'xxx'</span>);</span><br><span class="line">        System.out.println(<span class="string">'输出后换行'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">xxx</span> </span>&#123;</span><br><span class="line">    <span class="comment">//public 要求类名xxx与java文件名一致</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/26/interview-zuoyebang1/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/03/26/interview-zuoyebang1/" class="post-title-link" itemprop="url">interview-zuoyebang1</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-26 21:24:29" itemprop="dateCreated datePublished" datetime="2019-03-26T21:24:29+08:00">2019-03-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 17:39:58" itemprop="dateModified" datetime="2020-02-03T17:39:58+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天下午面了作业帮一面，很多很多不会的，找到答案之后来写一下吧。</p>
-<h1 id="1-Vue特点"><a href="#1-Vue特点" class="headerlink" title="1.Vue特点"></a>1.Vue特点</h1><p>我答了虚拟dom, 双向数据绑定</p>
-<h1 id="2-Vue组件中data-computed-props生成的先后顺序-各自特点"><a href="#2-Vue组件中data-computed-props生成的先后顺序-各自特点" class="headerlink" title="2.Vue组件中data, computed, props生成的先后顺序 各自特点"></a>2.Vue组件中data, computed, props生成的先后顺序 各自特点</h1><h1 id="3-Vue-router-切换路由时，发生了什么？"><a href="#3-Vue-router-切换路由时，发生了什么？" class="headerlink" title="3.Vue router 切换路由时，发生了什么？"></a>3.Vue router 切换路由时，发生了什么？</h1><p>生命周期</p>
-<h1 id="4-钩子"><a href="#4-钩子" class="headerlink" title="4. 钩子"></a>4. 钩子</h1><h1 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alert(a);</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-<p>10</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alert(a);</span><br><span class="line"><span class="keyword">const</span> a= <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-<p>报错 因为没有变量生命提升 a is not defined</p>
-<h1 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;x&#125; = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
-<p>报错 null不是对象，无法解构<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;...x&#125; = &#123;<span class="attr">x</span> : <span class="number">1</span>&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure></p>
-<p>{x : 1}</p>
-<h1 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p>0 1<br>为啥？ 答了事件队列<br>然后讲了一下eventloop</p>
-<h1 id="8-promise-then-then-then-如果想在第二个then处中止，应该怎么做"><a href="#8-promise-then-then-then-如果想在第二个then处中止，应该怎么做" class="headerlink" title="8. promise.then().then().then(); 如果想在第二个then处中止，应该怎么做"></a>8. promise.then().then().then(); 如果想在第二个then处中止，应该怎么做</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line">.then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'[onFulfilled_1]'</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;); <span class="comment">// 返回“pending”状态的Promise对象</span></span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="comment">// 后续的函数不会被调用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'[onFulfilled_2]'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h1 id="9-css盒模型"><a href="#9-css盒模型" class="headerlink" title="9. css盒模型"></a>9. css盒模型</h1><h1 id="10-css水平垂直居中"><a href="#10-css水平垂直居中" class="headerlink" title="10. css水平垂直居中"></a>10. css水平垂直居中</h1><h1 id="11-想问canvas-我说不咋记得了-于是问的注意点？"><a href="#11-想问canvas-我说不咋记得了-于是问的注意点？" class="headerlink" title="11. 想问canvas 我说不咋记得了 于是问的注意点？"></a>11. 想问canvas 我说不咋记得了 于是问<video>的注意点？</video></h1><h1 id="12-写一个js深拷贝-对象遍历用for-in-数组用forEach"><a href="#12-写一个js深拷贝-对象遍历用for-in-数组用forEach" class="headerlink" title="12. 写一个js深拷贝 对象遍历用for in 数组用forEach"></a>12. 写一个js深拷贝 对象遍历用for in 数组用forEach</h1><h1 id="13-http缓存？强缓存-协商缓存？"><a href="#13-http缓存？强缓存-协商缓存？" class="headerlink" title="13. http缓存？强缓存/协商缓存？"></a>13. http缓存？强缓存/协商缓存？</h1><pre><code>![http缓存]](https://img-blog.csdnimg.cn/20190304103021382.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0p1dGFsX2xqdA==,size_16,color_FFFFFF,t_70)
-</code></pre><h1 id="14-cookie过期-max-age-如何提高cookie安全性"><a href="#14-cookie过期-max-age-如何提高cookie安全性" class="headerlink" title="14. cookie过期 max-age? 如何提高cookie安全性"></a>14. cookie过期 max-age? 如何提高cookie安全性</h1><h1 id="15-http-only"><a href="#15-http-only" class="headerlink" title="15. http-only"></a>15. http-only</h1><h1 id="16-link引入外部css，-加载需要两秒的事件，用户在这两秒间看到啥？"><a href="#16-link引入外部css，-加载需要两秒的事件，用户在这两秒间看到啥？" class="headerlink" title="16. link引入外部css， 加载需要两秒的事件，用户在这两秒间看到啥？"></a>16. link引入外部css， 加载需要两秒的事件，用户在这两秒间看到啥？</h1><h1 id="17"><a href="#17" class="headerlink" title="17."></a>17.</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.red &#123;</span><br><span class="line">    background: red;</span><br><span class="line">&#125;</span><br><span class="line">.blue &#123;</span><br><span class="line">    background: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">div &#123;</span><br><span class="line">    width: <span class="number">200</span>px;</span><br><span class="line">    height: <span class="number">200</span>px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"red blue"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"blue red"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>权重相等时，样式会被覆盖，按css顺序，所以两个都是蓝色。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><a class="extend next" rel="next" href="/blog/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2084,7 +2078,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
