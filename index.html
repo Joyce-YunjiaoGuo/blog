@@ -339,6 +339,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2020/03/13/high-performance-yahoo/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2020/03/13/high-performance-yahoo/" class="post-title-link" itemprop="url">high-performance-yahoo</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-13 13:24:48 / 修改时间：14:21:07" itemprop="dateCreated datePublished" datetime="2020-03-13T13:24:48+08:00">2020-03-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Yahoo团队–网站性能优化的14条规则</p>
+<p>缓存<br>1.添加Expires头<br>　　通过使用Expires头，浏览器可以在用户首次访问网站后，将页面的资源缓存下来。可以为Expires指定过期时间，在指定时间后，缓存将失效。</p>
+<p>2.配置ETag<br>　　实体标签（Entity Tag）是web服务器和浏览器用于确认缓存资源的有效性的一种机制，它可以检测浏览器中缓存的资源与原始服务器上的资源是否匹配。ETag是唯一标识资源的一个特定版本的字符串，浏览器要验证一个资源，它会使用If-None-Match头将ETag传回原始服务器。如果ETag是匹配的，就会返回304状态码，从而使用浏览器缓存。</p>
+<p>3.缓存Ajax<br>　　确保Ajax请求具有长久的Expires头</p>
+<p>css&amp;js<br>4.将CSS放在顶部<br>　　将CSS放在底部会发生无样式闪烁，浏览器会先加载HTML，然后加载CSS，会出现一段没有任何样式的“白屏时间”。而将CSS放在顶部则能规避这个问题。</p>
+<p>5.将脚本放在底部<br>　　将脚本放在顶部或页面中，浏览器会对script标签内的内容进行解析，从而阻塞样式的渲染。除此之外，HTTP1.1规范建议浏览器从每个主机并行的下载两个组件，在高版本的IE和chrome、Firefox等浏览器则支持并行下载六个组件。但script会阻塞并行下载。因此我们应该将脚本放在底部。</p>
+<p>6.避免CSS表达式<br>　　CSS表达式具备求值计算能力，然而每次页面发生重绘时，CSS表达式会影响页面的加载时间。</p>
+<p>7.使用外部JavaScript和CSS<br>　　使用大量内联的JS和CSS就不能实现样式、结构、行为的分离，这样会在维护上造成很多麻烦，同时也会增大网页的体积。</p>
+<p>8.精简JavaScript和CSS<br>　　进行代码混淆可以压缩JS文件的大小，这个通过gulp等构建工具可以自动化的进行。</p>
+<p>9.移除重复脚本</p>
+<p>HTTP请求<br>10.减少HTTP请求<br>　　减少HTTP请求的方式很多，常见的包括CSS Sprites、合并JS和CSS、图片地图等。遵守这条规则可以改善首次访问网站的响应时间。</p>
+<p>11.减少DNS查询<br>　　通过使用Keep-Alive和较少的域名可以减少DNS查询</p>
+<p>12.使用CDN（内容发布网络）<br>　　只有10%-20%的最终用户响应时间花在了下载HTML文档上，其余的80%-90%时间花在了下载页面中的所有组件上。如果web服务器离服务器更近，则一个HTTP请求的响应时间将缩短。CDN是一组分布在多个不同地理位置的web服务器，每个服务器都拥有所有网站的文件副本，用户访问网站时，就可以从离用户最近的服务器发送所需的文件给客户端。Yahoo！Shopping网站使用CDN后响应时间减少了20%。</p>
+<p>13.启用Gzip<br>　　客户端可以通过HTTP请求中的Accept-Encoding头来标识对压缩的支持（Accept-Encoding：gzip,deflate），服务器看到请求中有这个头，就会使用客户端列出的一种方法来压缩响应。大多数网站使用gzip压缩了HTML。</p>
+<p>14.避免重定向<br>　　重定向用于将用户从一个URL重新路由到另一个URL。重定向有很多种，包括301永久重定向、302临时重定向，304 Not Modified并不是真正的重定向，它是用来响应Get请求，避免下载已经存在于浏览器缓存中的数据。在URL的结尾加上斜线（/）可以避免一部分重定向。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2020/03/12/interview-qqmusic/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2295,186 +2452,6 @@ call性能较好，平常可以多用call。
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2020/01/05/recruit-2019-2020/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2020/01/05/recruit-2019-2020/" class="post-title-link" itemprop="url">recruit-2019/2020</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-01-05 23:48:11" itemprop="dateCreated datePublished" datetime="2020-01-05T23:48:11+08:00">2020-01-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 17:40:27" itemprop="dateModified" datetime="2020-02-03T17:40:27+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>记录一下，这一个月以来的社招经历：</p>
-<p>阿里：一面做了3道题：promise分页加载；算法；继承（es5 &amp; es6），做的不好，遂挂。</p>
-<p>华为非正式：机考 -&gt; 性格测试 -&gt; 两轮技术。分别面了两个部门，技术面都比较不前端，主要问问项目，还有一些理论性的，或者计算机基础知识。云计算的部门是用angular和ningx，前端稍微问的多些，但都不难，不细。<br>现在两个部门都等在hr面，这之后还有综合面。</p>
-<p>富途：一面，前端问的比较基础，也问了些项目，手写了一道算法，最长公共子串。<br>1.6二面，听一面考官说，大部分问算法逻辑，几乎没有前端知识。</p>
-<p>深信服：一面，前端问的很细，说了两道算法的思路： twoSum和最长公共前缀，公共前缀那题没说出最优的解法；网络问了cookie，xss攻击，防抖节流，协商缓存和强缓存，还问了for in for of 区别，怎么直接遍历obj的值。。。</p>
-<p>腾讯文档：一面，我感觉问的很深，不知道是不是因为我是硕士的问题。问到说rn，如何实现native的方法，和native比较，使用过程中遇到的问题，很想让我讲源码的样子；还问了微信小程序，架构是怎么样的；一直强调说不能只会使用api吧；js问了数据类型的存储方式，这个真的没了解过啊。最后问了平衡二叉树，就尴尬地结束了。总结说，我的计算机基础不好，要多学点算法，数据结构，操作系统，网络，多了解一点底层的东西。</p>
-<p>腾讯教育：电话问了几个小问题，有前端也有逻辑思维；然后给了一个活动页，让我做一个demo，今天刚刚交上去，一开始没有配置package.json里的homepage，导致无法运行build下文件，后来面试官微信说我的还原度太低，包括动画和UI，还不知道最终结果，但我觉得多半凉了。</p>
-<p>字节跳动：1.9一面</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2521,7 +2498,7 @@ call性能较好，平常可以多用call。
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

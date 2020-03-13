@@ -339,6 +339,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/10/26/vim的使用/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JOYCE"/>
+      <meta itemprop="description" content="Do what you want!"/>
+      <meta itemprop="image" content="/blog/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/10/26/vim的使用/" class="post-title-link" itemprop="url">vim的最基本使用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-26 20:04:08 / 修改时间：20:35:29" itemprop="dateCreated datePublished" datetime="2019-10-26T20:04:08+08:00">2019-10-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近公司的代码库，突然要求强制加hook，然后发现每次commit代码的message必须以指定代码开头，不然就无法push到远程。<br>一直报错： commit id cannot be empty。<br>但是！有一次填写commit message时，我加了-，就报错！于是我只能修改这一次的message，再重新push。<br>以前从来没这样操作过，于是，我去百度了一下：</p>
+<p>git commit –amend 可以修改最近一次commit message</p>
+<p>然而！进入了我不太会的vi界面！于是就有了这篇文章！</p>
+<h3 id="三种模式"><a href="#三种模式" class="headerlink" title="三种模式"></a>三种模式</h3><p>基本上 vi/vim 共分为三种模式，分别是<br>命令模式（Command mode），<br>输入模式（Insert mode），<br>底线命令模式（Last line mode）。 </p>
+<p>这三种模式的作用分别是：</p>
+<h2 id="命令模式："><a href="#命令模式：" class="headerlink" title="命令模式："></a>命令模式：</h2><p><em>用户刚刚启动 vi/vim，便进入了命令模式。</em><br>此状态下敲击键盘动作会被Vim识别为命令，而非输入字符。</p>
+<p>以下是常用的几个命令：</p>
+<ul>
+<li>i 切换到<em>输入</em>模式，以输入字符。</li>
+<li>x <em>删除</em>当前光标所在处的字符。</li>
+<li>: 切换到<em>底线命令</em>模式，以在最底一行输入命令。</li>
+</ul>
+<p>命令模式只有一些最基本的命令，因此仍要依靠底线命令模式输入更多命令。</p>
+<h2 id="输入模式："><a href="#输入模式：" class="headerlink" title="输入模式："></a>输入模式：</h2><p>在命令模式下按下i就进入了输入模式。</p>
+<p>在输入模式中，可以使用以下按键：</p>
+<ul>
+<li>字符按键以及Shift组合，输入字符</li>
+<li>ENTER，回车键，换行</li>
+<li>BACK SPACE，退格键，删除光标前一个字符</li>
+<li>DEL，删除键，删除光标后一个字符</li>
+<li>方向键，在文本中移动光标</li>
+<li>HOME/END，移动光标到行首/行尾</li>
+<li>Page Up/Page Down，上/下翻页</li>
+<li>Insert，切换光标为输入/替换模式，光标将变成竖线/下划线</li>
+<li>ESC，退出输入模式，切换到命令模式</li>
+</ul>
+<h2 id="底线命令模式"><a href="#底线命令模式" class="headerlink" title="底线命令模式"></a>底线命令模式</h2><p>在命令模式下按下:（英文冒号）就进入了底线命令模式。<br>在输入模式下按下shift + : 就进入了底线命令模式。</p>
+<p>底线命令模式可以输入单个或多个字符的命令，可用的命令非常多。</p>
+<p>在底线命令模式中，基本的命令有（已经省略了冒号）：</p>
+<ul>
+<li>q 退出程序</li>
+<li>w 保存文件</li>
+<li>按ESC键可随时退出底线命令模式</li>
+</ul>
+<p>于是！想要修改最近一次commit message时，使用git commit –amend 进入vim后：</p>
+<p>命令模式–按i进入输入模式–&gt;<br>此时可以修改第一行的commit message–修改完成后，按shift+i进入底线命令模式–&gt;<br>此时光标来到最后一行–输入wq!–&gt;强制保存并退出</p>
+<p>最近一次的commit message就修改完成啦~</p>
+<p>这次操作只用了非常简单，为了以防万一，贴上vim比较全的操作用法。<br><a href="https://www.runoob.com/linux/linux-vim.html" target="_blank" rel="noopener">Linux vi/vim–菜鸟教程</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/09/02/webank-interview/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1942,214 +2122,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joyce-yunjiaoguo.github.io/blog/blog/2019/03/06/highperformance3/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JOYCE"/>
-      <meta itemprop="description" content="Do what you want!"/>
-      <meta itemprop="image" content="/blog/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/03/06/highperformance3/" class="post-title-link" itemprop="url">高性能javascript3--DOM</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-06 10:52:08" itemprop="dateCreated datePublished" datetime="2019-03-06T10:52:08+08:00">2019-03-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 17:11:08" itemprop="dateModified" datetime="2020-02-03T17:11:08+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/books/" itemprop="url" rel="index"><span itemprop="name">books</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>用JS操作DOM很耗性能！！！</strong><br>？<br>因为<em>浏览器通常把DOM和JS独立实现</em>，如Chrome中，用Webkit中的WebCore来实现DOM和渲染，但JS部分是由独立的JS引擎–V8。<br>两个相互独立的功能只要通过接口彼此连接，就会产生性能消耗。<em>所以用JS操作DOM次数越多，性能越差。</em><br>=&gt;<strong>减少DOM操作，把运算尽量留在ECMAScript处理。</strong></p>
-<hr>
-<h2 id="DOM访问与修改"><a href="#DOM访问与修改" class="headerlink" title="DOM访问与修改"></a>DOM访问与修改</h2><p><em>访问DOM元素是有代价的，修改DOM元素代价更为昂贵。</em></p>
-<p>最差！对HTML元素集合循环操作 每次循环操作，读取值一次，重写值一次<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">innnerHTMLLoop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; <span class="number">15000</span>; count++) &#123;</span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">'here'</span>).innerHTML += <span class="string">'a'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p> 修改版本：一共只读取一次，重写一次<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">innerHTMLLoop2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> content = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count=<span class="number">0</span>; count&lt;<span class="number">15000</span>; count++) &#123;</span><br><span class="line">        content += <span class="string">'a'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'here'</span>).innerHTML += content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p> =&gt; <strong>减少DOM操作次数，尽量在ECMAScript中运算。</strong></p>
-<h3 id="innerHTML-vs-DOM方法"><a href="#innerHTML-vs-DOM方法" class="headerlink" title="innerHTML vs DOM方法"></a>innerHTML vs DOM方法</h3><p> <strong>绝大多数–旧版浏览器中，innerHTML性能更好；</strong>但在基于Webkit内核的新版浏览器中，DOM方法性能更好。</p>
-<h3 id="节点克隆"><a href="#节点克隆" class="headerlink" title="节点克隆"></a>节点克隆</h3><p> 相比较创建新的元素document.createElement()， <strong>ele.cloneNode()效率更高一些。</strong>（先创建需要重复的元素，再clone）</p>
-<h3 id="HTML集合"><a href="#HTML集合" class="headerlink" title="HTML集合"></a>HTML集合</h3><p> HTML集合是包含了DOM节点引用的类数组对象。 以下返回值都为HTML集合：<br> document.getElementsByName(), document.getElementsByClassName(), document.getElementsByTagName()…<br> document.images, document.links, document.forms, document.forms[0].elements（页面中第一个表单的所有片段）…</p>
-<p> 底层DOM更新时，HTML集合也会自动更新 =&gt; 循环遍历时，每次迭代，都会重复执行查询<br> <strong>循环中访问length属性</strong> 解决方法：<br> 1.将HTML集合复制到数组中，再处理这个数组。（大集合时，遍历数组快于遍历集合，但toArray中也多遍历了一次集合）<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toArray</span>(<span class="params">coll</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = [],</span><br><span class="line">    len = coll.length;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i&lt;len; i++) &#123;</span><br><span class="line">        a[i] = coll[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> coll = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line"><span class="keyword">var</span> arr = toArray(coll);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loopCopiedArray</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count=<span class="number">0</span>; count&lt;arr.length; count++) &#123;</span><br><span class="line">        <span class="comment">//处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p> 2.缓存length（遍历较小集合时）<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loopCacheLengthCollection</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> coll = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line">    <span class="keyword">var</span> len = coll.length;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count=<span class="number">0</span>; count&lt;len; count++) &#123;</span><br><span class="line">        <span class="comment">//处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p> <strong>循环中访问元素集合</strong> 解决方法：<br> 使用局部变量存储集合引用 el<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> coll = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>),</span><br><span class="line">    len = coll.length,</span><br><span class="line">    name = <span class="string">''</span>,type = <span class="string">''</span>, tag = <span class="string">''</span>,</span><br><span class="line">    el = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; len; count++) &#123;</span><br><span class="line">    el = coll[count];</span><br><span class="line">    name = el.nodeName;</span><br><span class="line">    type = el.nodeType;</span><br><span class="line">    tag = el.tagName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="遍历DOM"><a href="#遍历DOM" class="headerlink" title="遍历DOM"></a>遍历DOM</h3><p>非递归方式遍历元素所有子节点：用nextSibling来获取每个相邻元素 或 用childNodes得到子元素集合。</p>
-<p>DOM自带属性不区分元素节点，注释节点，文本节点=&gt;多DOM操作过滤元素节点。所以，可以使用 <strong>只返回元素节点的API</strong>:<br>children           -  childNodes<br>childElementCount  -  childNodes.length<br>firstElementChild  -  firstChild<br>lastElementChild   -  lastChild<br>IE只支持children， 其他不支持。所有浏览器中，children都比childNodes快。</p>
-<p>使用 <strong>css选择器</strong>，查找元素更快，返回匹配节点的类数组对象，而不是HTML集合，避免可能的性能问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elements = <span class="built_in">document</span>.querySelectorAll(<span class="string">'#menu a'</span>);</span><br><span class="line"><span class="keyword">var</span> errs = <span class="built_in">document</span>.querySelectorAll(<span class="string">'div.warning, div.notice'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>querySelector()获取第一个匹配的节点。</p>
-<h2 id="重排和重绘"><a href="#重排和重绘" class="headerlink" title="重排和重绘"></a>重排和重绘</h2><p>浏览器下载完页面中的所有资源后，会解析并生成两个内部数据结构–DOM树和css树 =&gt; render树</p>
-<p>几何属性变化（添加或删除可见的DOM元素，元素位置改变，尺寸改变，内容改变，页面渲染器初始化，浏览器窗口尺寸改变，滚动条） =&gt; <strong>重排</strong></p>
-<p>由于每次重排都会产生计算消耗，大多数浏览器通过<em>队列化修改并批量</em>执行来优化重排过程。<br>但以下方法会强制刷新队列并立即执行：<br>offsetTop, offsetLeft, offsetWidth, offsetHeight<br>scrollTop, scrollLeft, scrollWidth, scrollHeight<br>clientTop, clientLeft, clientWidth, clientHeight<br>getComputedStyle(), currentStyle() in IE<br>！！！这些方法最好集中到最后一起执行，避免多次强制执行消耗性能。</p>
-<h3 id="最小化重排和重绘"><a href="#最小化重排和重绘" class="headerlink" title="最小化重排和重绘"></a>最小化重排和重绘</h3><ol>
-<li>合并 <strong>样式</strong>改变<br>使用cssText属性：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> el = <span class="built_in">document</span>.getElementById(<span class="string">'mydiv'</span>);</span><br><span class="line">el.style.cssText += <span class="string">'border-left: 1px; border-right: 2px; padding: 5px;'</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>修改class, 在css中写样式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">el.className = <span class="string">'active'</span></span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li><strong>批量修改DOM</strong><br>使元素脱离文档流=&gt; 多次DOM操作 =&gt; 把元素再放回文档中<br>有三种方法使DOM元素脱离文档流：<br>a.改变display属性<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">'mylist'</span>);</span><br><span class="line">ul.style.display = <span class="string">'none'</span>;</span><br><span class="line">appendDataToElement(ul, data);</span><br><span class="line">ul.style.display = <span class="string">'block'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>b. <strong>使用文档碎片！！！</strong>最推荐 性能最好<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fragment = <span class="built_in">document</span>.createDocumentFragment();</span><br><span class="line">appendDataToElement(fragment, data);</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'mylist'</span>).appendChild(fragment);</span><br></pre></td></tr></table></figure></p>
-<p>c.复制一个副本，对副本进行操作<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> old = <span class="built_in">document</span>.getElementById(<span class="string">'mylist'</span>);</span><br><span class="line"><span class="keyword">var</span> clone = old.cloneNode(<span class="literal">true</span>);</span><br><span class="line">appendDataToElement(clone, data);</span><br><span class="line">old.parentNode.replaceNode(clone, old);</span><br></pre></td></tr></table></figure></p>
-<p>3.缓存布局信息<br>使用offset, scroll, client, getComputedStyle时，把获取到的值给局部变量存在来，之后再用时只需要操作局部变量。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> current = myElement.offsetLeft;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    current++;</span><br><span class="line">    myElement.style.left = current + <span class="string">'px'</span>;</span><br><span class="line">    myElement.style.top = current + <span class="string">'px'</span>;</span><br><span class="line">    <span class="keyword">if</span>(current &gt; <span class="number">500</span>) &#123;</span><br><span class="line">        stopAnimation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">500</span>)</span><br></pre></td></tr></table></figure></p>
-<p>4.展开区域的几何动画 =&gt; 大量重排<br>可以用position: absolute;定位页面上的动画元素，使其脱离文档流</p>
-<p>5.IE中大量使用:hover会降低响应速度。</p>
-<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><p>每个事件都要经历三个阶段：1.捕获 2.到达目标 3. 冒泡</p>
-<p><img src="https://images2015.cnblogs.com/blog/1005354/201612/1005354-20161222125521823-1914047378.png" alt="事件"></p>
-<p>事件委托只需要给外层元素绑定一个事件处理，当事件逐层冒泡到父元素时，可以获得事件源对象，并对其处理。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'ul'</span>)[<span class="number">0</span>].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//事件源对象</span></span><br><span class="line">    e = e || <span class="built_in">window</span>.event;</span><br><span class="line">    <span class="keyword">var</span> target = e.target || e.srcElement;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理target...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//阻止默认行为</span></span><br><span class="line">    e.preventDefault(); || e.returnValue = <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//取消冒泡</span></span><br><span class="line">    e.stopPropagation(); || e.cancelBubble = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2196,7 +2168,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
